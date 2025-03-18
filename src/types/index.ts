@@ -1,18 +1,7 @@
-import { EditorState } from "draft-js";
-import { Timestamp } from "firebase/firestore/lite";
-
 export type Product = {
   id: number;
   name: string;
   price: number;
-};
-export type CartItem = {
-  productName: string;
-  price: number;
-  category: string;
-  slug: string;
-  currency: string;
-  error: boolean;
 };
 export type CustomerInfo = {
   firstName: string;
