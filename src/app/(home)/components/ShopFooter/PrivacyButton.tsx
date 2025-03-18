@@ -1,6 +1,6 @@
 "use client";
 
-import PrivacyPolicy from "@/views/landing/SocialMedia/PrivacyPolicy";
+import PrivacyPolicy from "@/components/PrivacyPolicy";
 import { useState } from "react";
 
 export default function PrivacyButton({

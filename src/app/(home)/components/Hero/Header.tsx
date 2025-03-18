@@ -5,7 +5,6 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export default function Header() {
-  const [isMenuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   return (
     <header
@@ -16,7 +15,7 @@ export default function Header() {
       <nav className="container mx-auto flex items-center justify-between py-4 px-6 lg:px-10">
         <Link href="/" className="flex items-center space-x-3 text-white">
           <Image
-            src="/images/image/common/logobbwWhite.png"
+            src="/images/image/common/logoWhite.png"
             width={40}
             height={40}
             alt="Blackbell Art logo"

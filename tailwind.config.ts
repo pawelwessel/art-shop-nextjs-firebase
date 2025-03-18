@@ -17,7 +17,7 @@ const config: Config = {
       },
       backgroundImage: {
         "form-img": "url('/images/bg-lines/form.png')",
-        "form-orders": "url('/images/shop/bg-orders.webp')",
+        "form-orders": "url('/images/bg-orders.webp')",
         "hero-svg": "url('/images/bg-lines/hero-bg-line.svg')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
