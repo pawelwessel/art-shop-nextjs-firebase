@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
@@ -8,14 +7,14 @@ export default function Header() {
   const pathname = usePathname();
   return (
     <header
-      className={`z-50 w-full bg-[#303030] shadow-md ${
+      className={`z-50 w-full bg-black shadow-md ${
         pathname.includes("admin") && "hidden"
       }`}
     >
       <nav className="container mx-auto flex items-center justify-between py-4 px-6 lg:px-10">
         <Link href="/" className="flex items-center space-x-3 text-white">
           <Image
-            src="/images/image/common/logoWhite.png"
+            src="/images/logoWhite.png"
             width={40}
             height={40}
             alt="Blackbell Art logo"
