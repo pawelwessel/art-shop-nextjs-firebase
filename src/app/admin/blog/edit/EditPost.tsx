@@ -1,10 +1,9 @@
 "use client";
 import { renderMarkdown } from "@/lib/parseMarkdown";
 import { polishToEnglish } from "../../../../../utils/polishToEnglish";
-import { updateBlogPost } from "@/firebase";
 import Link from "next/link";
 import { useState } from "react";
-import { FaEdit, FaLink, FaLongArrowAltLeft, FaTrash } from "react-icons/fa";
+import { FaLink, FaLongArrowAltLeft, FaTrash } from "react-icons/fa";
 import * as Scroll from "react-scroll";
 import PostImages from "./PostImages";
 import { Post } from "@/types";
@@ -12,6 +11,9 @@ import EditSection from "./EditSection";
 import { EditorState } from "draft-js";
 import SectionContentEditor from "../new/PostSections/SectionContentEditor";
 import SectionsList from "../new/PostSections/SectionsList";
+import { db } from "@/firebase";
+import { doc, updateDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 export default function EditPost({
   selectedPost,
   setSelectedPost,
@@ -60,6 +62,28 @@ export default function EditPost({
     setSelectedPost({ ...selectedPost, tags: newTags });
   };
   const [sectionEditorOpen, setSectionEditorOpen] = useState(true);
+
+  const updatePost = async () => {
+    try {
+      const postRef = doc(db, "posts", selectedPost.postId);
+      await updateDoc(postRef, selectedPost);
+      toast.success("Zaaktualizowano post pomyślnie!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    } catch (error) {
+      toast.error("Wystąpił błąd podczas aktualizacji posta!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+  };
 
   return (
     <div className="relative">
@@ -269,9 +293,7 @@ export default function EditPost({
           )}
           {selectedPost.url !== "" && (
             <button
-              onClick={() => {
-                updateBlogPost(selectedPost.postId, selectedPost);
-              }}
+              onClick={updatePost}
               className="py-6 bg-green-500 text-2xl text-white hover:bg-green-400 duration-200"
             >
               AKTUALIZUJ
