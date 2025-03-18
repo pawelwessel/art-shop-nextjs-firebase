@@ -3,7 +3,7 @@ import { ArtworkData } from "@/types";
 
 import Link from "next/link";
 import { useState } from "react";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaLongArrowAltLeft, FaPhone } from "react-icons/fa";
 import { getPolishCurrency } from "../../../../../utils/getPolishCurrency";
 import Viewer from "@/components/Viewer";
 import { removeFromCart, setCart } from "@/redux/slices/shopSlice";
@@ -11,7 +11,7 @@ import { removeFromCart, setCart } from "@/redux/slices/shopSlice";
 import { FaShoppingCart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
-import { useEffect } from "react";
+
 import ProductImages from "../ProductImages";
 import { polishToEnglish } from "../../../../../utils/polishToEnglish";
 import ProjectImages from "../ProjectImages";
@@ -56,8 +56,8 @@ export default function Product({
         />
       </div>
       {isCartOpen && (
-        <div className="z-[80] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[76vh] max-w-[30rem] overflow-y-scroll bg-white px-4 py-8 sm:px-6 lg:px-8 h-max lg:w-max">
-          <p className="text-3xl text-black font-bold">Koszyk</p>
+        <div className="z-[80] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[76vh] w-[90%] md:max-w-[30rem] overflow-y-scroll bg-white p-4 sm:px-6 lg:px-8 h-max lg:w-max">
+          <p className="text-lg text-black font-bold">Koszyk</p>
           <div className="flex flex-col items-center justify-center w-full">
             {!cart?.length && (
               <>
@@ -68,7 +68,7 @@ export default function Product({
               </>
             )}
             {cart?.length !== 0 && (
-              <div className="grid grid-cols-1 mt-8 text-zinc-800 drop-shadow-md shadow-black w-full">
+              <div className="grid grid-cols-1 mt-4 text-zinc-800 drop-shadow-md shadow-black w-full">
                 {cart?.map((item: ArtworkData, i: any) => (
                   <div key={i}>
                     <div className="flex flex-row justify-between bg-gray-200 w-full">
@@ -83,13 +83,18 @@ export default function Product({
                           />
                         </div>
                         <div className="pl-2 w-full">
-                          <p className="text-lg font-bold">{item.title}</p>
-                          <p className="font-bold text-lg">
+                          <p className="font-bold">
+                            {item.title}{" "}
+                            {item.dimensions && (
+                              <span className="font-normal text-gray-500">
+                                ({item.dimensions})
+                              </span>
+                            )}
+                          </p>
+                          <p className="font-bold">
                             {item.price > 0 && getPolishCurrency(item.price)}
                           </p>
-                          <p className="text-gray-500 text-sm">
-                            {item.dimensions}
-                          </p>
+
                           <button
                             onClick={() => {
                               dispatch(removeFromCart(item));
@@ -152,7 +157,7 @@ export default function Product({
         <Image
           width={800}
           height={800}
-          src={product.mainImage}
+          src={product.mainImage || product.images[0].src}
           alt={product.title}
           className="w-full h-full"
         />
@@ -163,7 +168,7 @@ export default function Product({
           onClick={(e) => e.stopPropagation()}
           className="bg-white z-50 overflow-y-scroll left-0 top-0 lg:top-1/2 lg:-translate-y-1/2 lg:left-1/2 lg:-translate-x-1/2 fixed"
         >
-          <div className="h-screen lg:h-[80vh] p-4 lg:p-12 w-screen lg:max-w-[80vw]">
+          <div className="relative h-screen lg:h-[80vh] p-4 lg:p-12 w-screen lg:max-w-[80vw]">
             <div className="bg-gray-100 border border-gray-500 p-3">
               <h2 className="text-black drop-shadow-lg text-xl sm:text-3xl xl:text-4xl font-bold">
                 {product.title}
@@ -206,11 +211,11 @@ export default function Product({
                 setIsOpen={setIsOpen}
               />
             </div>
-            <div className="flex justify-center lg:justify-start mt-5">
+            <div className="flex mt-5">
               {/* cartbtn */}
               <button
                 onClick={handleAddToCart}
-                className={`bg-zinc-500 hover:bg-zinc-600 text-white py-3 px-8 text-lg sm:text-base xl:text-lg font-bold uppercase tracking-wider ${
+                className={`bg-zinc-500 hover:bg-zinc-600 text-white py-3 px-8 font-bold ${
                   cart?.find((i: any) => i.id === product.id)
                     ? "duration-300 cursor-not-allowed"
                     : ""
@@ -228,9 +233,9 @@ export default function Product({
               </button>
               <button
                 onClick={() => setCartOpen(!isCartOpen)}
-                className={`flex justify-center items-center group w-16 bg-black z-[150]`}
+                className={` flex justify-center items-center group w-16 bg-black z-[101]`}
               >
-                <div className="absolute rounded-full p-1 h-max w-auto text-white font-bold text-2xl right-1 bottom-1 aspect-square">
+                <div className="rounded-full h-max w-auto text-white font-bold text-2xl aspect-square">
                   {cart?.length === 0 ? "" : cart?.length}
                 </div>
                 <FaShoppingCart className="text-xl text-white" />
@@ -278,10 +283,33 @@ export default function Product({
                 ))}
               </div>
             </div>
+            <div className="z-[102] sticky bottom-0 left-0 w-full h-12 bg-gray-700 text-gray-200 rounded-t-xl grid grid-cols-3">
+              <button
+                onClick={() => setOpenedImage(null)}
+                className="flex flex-col items-center justify-center text-xs"
+              >
+                <FaLongArrowAltLeft className="text-lg" />
+                Powrót
+              </button>
+              <button
+                onClick={() => setCartOpen(true)}
+                className="flex flex-col items-center justify-center text-xs border-x border-gray-500"
+              >
+                <FaShoppingCart className="text-lg" />
+                Koszyk
+              </button>
+              <button
+                onClick={() => setOpenedImage(null)}
+                className="flex flex-col items-center justify-center text-xs"
+              >
+                <FaPhone className="text-lg" />
+                Kontakt
+              </button>
+            </div>
           </div>
         </div>
       )}
-      {openedImage !== null && (
+      {openedImage === product.id && (
         <div
           className="z-[21] bg-black/70 fixed left-0 top-0 w-full h-screen"
           onClick={() => setOpenedImage(null)}

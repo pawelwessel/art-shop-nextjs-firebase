@@ -1,7 +1,6 @@
 "use client";
 import { renderMarkdown } from "@/lib/parseMarkdown";
 import { polishToEnglish } from "../../../../../utils/polishToEnglish";
-import { addBlogPost } from "@/firebase";
 import Link from "next/link";
 import { useState } from "react";
 import { FaLink, FaLongArrowAltLeft } from "react-icons/fa";
@@ -13,6 +12,7 @@ import { EditorState } from "draft-js";
 import EditSection from "../edit/EditSection";
 import SectionsList from "./PostSections/SectionsList";
 import FaqHandler from "./FaqHandler";
+import { addDocument } from "@/firebase";
 var randomId = require("random-id");
 export default function NewPostPage() {
   const [input, setInput] = useState({
@@ -215,7 +215,7 @@ export default function NewPostPage() {
 
               <button
                 onClick={() => {
-                  addBlogPost(input);
+                  addDocument("blog", input.postId, input);
                   setTimeout(() => {
                     setInput({
                       ...input,

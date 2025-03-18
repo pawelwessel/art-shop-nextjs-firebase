@@ -2,7 +2,7 @@
 import { ArtworkData } from "@/types";
 import Product from "./Product";
 import { useState } from "react";
-
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 export default function Products({ products }: { products: ArtworkData[] }) {
   const [openedImage, setOpenedImage] = useState<any>(null);
   const [filter, setFilter] = useState("all");
@@ -77,23 +77,29 @@ export default function Products({ products }: { products: ArtworkData[] }) {
           </select>
         </div>
       </div>
-      <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((product: any, i) => (
-            <Product
-              product={product}
-              key={i}
-              products={[...products]
-                .sort(() => 0.5 - Math.random())
-                .slice(0, 10)}
-              openedImage={openedImage}
-              setOpenedImage={setOpenedImage}
-            />
-          ))
-        ) : (
-          <div className="p-4 bg-gray-200"> Brak wyników... </div>
-        )}
-      </div>
+      {/* implement masonry grid instead of grid */}
+      <ResponsiveMasonry
+        className="mt-4"
+        columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3, 1360: 4 }}
+      >
+        <Masonry>
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((product: any, i) => (
+              <Product
+                product={product}
+                key={i}
+                products={[...products]
+                  .sort(() => 0.5 - Math.random())
+                  .slice(0, 10)}
+                openedImage={openedImage}
+                setOpenedImage={setOpenedImage}
+              />
+            ))
+          ) : (
+            <div className="p-4 bg-gray-200"> Brak wyników... </div>
+          )}
+        </Masonry>
+      </ResponsiveMasonry>
     </div>
   );
 }

@@ -10,21 +10,18 @@ export default function Header() {
   const pathname = usePathname();
   return (
     <header
-      className={`z-[101] w-full bg-[#303030] shadow-md ${
+      className={`z-50 w-full bg-[#303030] shadow-md ${
         pathname.includes("admin") && "hidden"
       }`}
     >
       <nav className="container mx-auto flex items-center justify-between py-4 px-6 lg:px-10">
-        <Link
-          href="/"
-          className="flex items-center space-x-3 text-white z-[100]"
-        >
+        <Link href="/" className="flex items-center space-x-3 text-white">
           <Image
             src="/images/image/common/logobbwWhite.png"
             width={40}
             height={40}
             alt="Blackbell Art logo"
-            className="h-[40px] w-auto"
+            className="h-[40px] w-auto mix-blend-difference"
           />
           <span className="text-2xl font-bold">Blackbell Art</span>
         </Link>

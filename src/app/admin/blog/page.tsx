@@ -1,26 +1,15 @@
-"use client";
-
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setPosts } from "@/redux/slices/posts";
-import { getBlogPosts } from "@/firebase";
 import Image from "next/image";
 import { Post } from "@/types";
+import { getDocuments } from "@/firebase";
 
-export default function Page() {
-  const dispatch = useDispatch();
-  const { posts } = useSelector((state: any) => state.posts);
-  useEffect(() => {
-    if (posts?.length === 0) {
-      getBlogPosts().then((data) => dispatch(setPosts(data)));
-    }
-  }, [posts]);
+export default async function Page() {
+  const posts: any = await getDocuments("blog");
   return (
     <div className="p-12">
       <h1 className="text-2xl text-white">Blog</h1>
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 lg:gap-6 ">
         {posts &&
-          posts?.posts?.map((post: Post, i: number) => (
+          posts?.map((post: Post, i: number) => (
             <div
               key={i}
               className="cursor-pointer group relative aspect-square h-max flex flex-col hover:bg-green-300 hover:p-1 duration-300 ease-in-out rounded-lg shadow-md  shadow-zinc-700"
