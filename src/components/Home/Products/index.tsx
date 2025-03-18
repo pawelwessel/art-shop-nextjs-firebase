@@ -2,7 +2,14 @@
 import { ArtworkData } from "@/types";
 import Product from "./Product";
 import { useState } from "react";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import dynamic from "next/dynamic";
+const Masonry = dynamic(() => import("react-responsive-masonry"), {
+  ssr: false,
+});
+const ResponsiveMasonry = dynamic(
+  () => import("react-responsive-masonry").then((mod) => mod.ResponsiveMasonry),
+  { ssr: false }
+);
 export default function Products({ products }: { products: ArtworkData[] }) {
   const [openedImage, setOpenedImage] = useState<any>(null);
   const [filter, setFilter] = useState("all");
@@ -10,13 +17,11 @@ export default function Products({ products }: { products: ArtworkData[] }) {
 
   const filterProducts = () => {
     let filteredProducts = products;
-
     if (filter !== "all") {
       filteredProducts = filteredProducts.filter(
         (product) => product.category === filter
       );
     }
-
     if (priceFilter === "low-to-high") {
       filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
     } else if (priceFilter === "high-to-low") {
@@ -88,9 +93,7 @@ export default function Products({ products }: { products: ArtworkData[] }) {
               <Product
                 product={product}
                 key={i}
-                products={[...products]
-                  .sort(() => 0.5 - Math.random())
-                  .slice(0, 10)}
+                products={products}
                 openedImage={openedImage}
                 setOpenedImage={setOpenedImage}
               />

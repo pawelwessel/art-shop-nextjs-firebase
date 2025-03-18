@@ -1,11 +1,11 @@
 "use client";
 import Link from "next/link";
-import Header from "../(home)/components/Hero/Header";
+import Header from "../../components/Home/Hero/Header";
 import { FaCheck } from "react-icons/fa";
 import { useState } from "react";
 import Sizes from "./Sizes";
 import Media from "./Media";
-import PrepareCart from "../(home)/components/PrepareCart";
+import PrepareCart from "../../components/Home/PrepareCart";
 import Details from "./Details";
 import ImageInput from "./ImageInput";
 import { v4 as uuidv4 } from "uuid";

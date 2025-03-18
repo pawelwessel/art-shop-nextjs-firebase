@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import Orders from "../(home)/components/Orders";
-import ShopFooter from "../(home)/components/ShopFooter";
+import Orders from "../../components/Home/Orders";
+import ShopFooter from "../../components/Home/ShopFooter";
 
 export default async function RootLayout({
   children,

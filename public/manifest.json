@@ -4,8 +4,8 @@
   "description": "Eliza Czerwińska to artystka z Grudziądza, specjalizująca się w tworzeniu unikalnych i artystycznych obrazów na zamówienie. Oferuje szeroki wybór obrazów oraz profesjonalną obsługę.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1d1d1d",
-  "theme_color": "#1d1d1d",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "icons": [
     {
       "src": "/favicons/favicon.ico",

@@ -1,12 +1,11 @@
 import "../styles/globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { Anton } from "next/font/google";
 import { Providers } from "@/redux/Provider";
 import Script from "next/script";
-import Header from "./(home)/components/Hero/Header";
+import Header from "../components/Home/Hero/Header";
 import { Cardo } from "next/font/google";
-import PrepareCart from "./(home)/components/PrepareCart";
+import PrepareCart from "../components/Home/PrepareCart";
 export default async function RootLayout({
   children,
 }: {
@@ -14,9 +13,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="pl">
-      <body
-        className={`${cocosharp.variable} ${cardo.variable} ${anton.variable} bg-[#1d1d1d]`}
-      >
+      <body className={`${cocosharp.variable} ${cardo.variable}`}>
         <Providers>
           <PrepareCart />
           <Header />
@@ -36,11 +33,6 @@ export default async function RootLayout({
   );
 }
 
-const anton = Anton({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-anton",
-});
 const cardo = Cardo({
   weight: ["400", "700"],
   style: ["normal", "italic"],
@@ -84,31 +76,16 @@ const cocosharp = localFont({
   ],
   variable: "--font-cocosharp",
 });
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  minimumScale: 1,
+  maximumScale: 1,
+  themeColor: "#000000",
+};
 export const metadata: Metadata = {
-  viewport: "width=device-width, initial-scale=1",
-  themeColor: "#1d1d1d",
-  publisher: "Black Bell Tattoo & Art",
+  publisher: "Black Bell Art Design",
   manifest: "/manifest.json",
-  keywords: [
-    "Najlepsi artyści tatuażu w Grudziądzu",
-    "Projekt tatuażu Grudziądz",
-    "Profesjonalne studio tatuażu Grudziądz",
-    "Unikalne tatuaże Grudziądz",
-    "Salon tatuażu Grudziądz",
-    "Tatuaż na zamówienie Grudziądz",
-    "Sztuka tatuażu Grudziądz",
-    "Ceny tatuażu Grudziądz",
-    "Obraz na zamówienie Grudziądz",
-    "Obrazy olejne",
-    "Obrazy portrety",
-    "Obrazy abstrakcje",
-    "Obrazy na płótnie",
-    "Sklep z Obrazami",
-    "Black Bell Tattoo & Art",
-    "Black Bell Art Studio",
-    "Black Bell Art",
-    "Black Bell",
-  ],
   verification: {
     google: "google85185d3abec28326.html",
   },
@@ -124,16 +101,15 @@ export const metadata: Metadata = {
       type: "image/x-icon",
     },
   ],
-  title:
-    "Sklep z Obrazami | Obraz na zamówienie | Obrazy olejne | Obrazy portrety | Obrazy abstrakcje",
+  title: "Sklep z Obrazami | Obrazy na zamówienie | Obrazy na płótnie",
   description:
     "Kup oryginalne obrazy na płótnie: obrazy olejne, portrety i abstrakcje. Kup unikalny obraz dla siebie lub na prezent już dziś.",
   openGraph: {
     type: "website",
-    url: "https://blackbellart.com",
-    title: "Sklep z Obrazami | Obraz na zamówienie Grudziądz | Obrazy olejne",
+    url: "https://blackbellartdesign.pl",
+    title: "Sklep z Obrazami | Obrazy na zamówienie | Obrazy na płótnie",
     description:
       "Kup oryginalne obrazy na płótnie: obrazy olejne, portrety i abstrakcje. Kup unikalny obraz dla siebie lub na prezent już dziś.",
-    siteName: "Black Bell Tattoo & Art",
+    siteName: "Black Bell Art Design",
   },
 };

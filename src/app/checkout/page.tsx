@@ -3,10 +3,10 @@ import Link from "next/link";
 import StripeButton from "./StripeButton";
 import { useState } from "react";
 import CheckoutSummary from "./CheckoutSummary";
-import PrepareCart from "../(home)/components/PrepareCart";
+import PrepareCart from "../../components/Home/PrepareCart";
 import { useSelector } from "react-redux";
-import ShopFooter from "../(home)/components/ShopFooter";
-import Orders from "../(home)/components/Orders";
+import ShopFooter from "../../components/Home/ShopFooter";
+import Orders from "../../components/Home/Orders";
 export type CustomerInfo = {
   firstName: string;
   lastName: string;

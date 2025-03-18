@@ -5,19 +5,19 @@ import Image from "next/image";
 export default function ProductImages({
   product,
   setCurrentIndex,
-  setIsOpen,
+  setImageOpen,
 }: {
   product: any;
   setCurrentIndex: any;
-  setIsOpen: any;
+  setImageOpen: any;
 }) {
   return (
-    <div className="grid grid-cols-3 lg:grid-cols-5 gap-2 mb-3">
+    <div className="mt-8 grid grid-cols-3 lg:grid-cols-5 gap-2 mb-4">
       {product.images.map((image: any, i: any) => (
         <div
           onClick={() => {
             setCurrentIndex(i);
-            setIsOpen(true);
+            setImageOpen(true);
           }}
           key={i}
           className="aspect-square cursor-pointer"

@@ -14,7 +14,7 @@ export default async function Page() {
                 className={`max-h-[300px] w-auto space-x-3 bg-gray-300`}
                 width={1024}
                 height={1024}
-                src={item.images[0]}
+                src={item.images[0].src}
                 alt=""
                 key={i}
               />

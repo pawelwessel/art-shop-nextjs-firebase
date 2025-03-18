@@ -12,7 +12,6 @@ const config: Config = {
     extend: {
       fontFamily: {
         coco: ["var(--font-cocosharp)"],
-        anton: ["var(--font-anton)"],
         cardo: ["var(--font-cardo)"],
       },
       backgroundImage: {

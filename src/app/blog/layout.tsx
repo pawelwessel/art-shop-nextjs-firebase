@@ -1,6 +1,6 @@
-import Orders from "../(home)/components/Orders";
-import ShopFooter from "../(home)/components/ShopFooter";
-import PrepareCart from "../(home)/components/PrepareCart";
+import Orders from "../../components/Home/Orders";
+import ShopFooter from "../../components/Home/ShopFooter";
+import PrepareCart from "../../components/Home/PrepareCart";
 
 export default function ShopLayout({
   children,

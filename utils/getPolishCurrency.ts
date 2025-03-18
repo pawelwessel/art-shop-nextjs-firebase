@@ -13,4 +13,7 @@ export function getPolishCurrency(priceToFormat: number) {
   if (cartString.length === 2) {
     return `${cartString[0]}${cartString[1]},00 zł`;
   }
+  if (cartString.length === 1) {
+    return `${cartString[0]},00 zł`;
+  }
 }
