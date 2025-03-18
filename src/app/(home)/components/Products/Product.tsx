@@ -15,6 +15,7 @@ import Image from "next/image";
 import ProductImages from "../ProductImages";
 import { polishToEnglish } from "../../../../../utils/polishToEnglish";
 import ProjectImages from "../ProjectImages";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 export default function Product({
   product,
   products,
@@ -233,7 +234,7 @@ export default function Product({
               </button>
               <button
                 onClick={() => setCartOpen(!isCartOpen)}
-                className={` flex justify-center items-center group w-16 bg-black z-[101]`}
+                className={` flex justify-center items-center group w-auto px-4 bg-black z-[101]`}
               >
                 <div className="rounded-full h-max w-auto text-white font-bold text-2xl aspect-square">
                   {cart?.length === 0 ? "" : cart?.length}
@@ -253,35 +254,40 @@ export default function Product({
               <h3 className="mt-8 text-black text-lg sm:text-xl xl:text-2xl text-center lg:text-left font-bold flex flex-row items-center">
                 Zobacz więcej
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 w-full gap-3 gap-y-5 my-5">
-                {products?.map((item: any, i: any) => (
-                  <div
-                    className={`border border-gray-500 ${
-                      item.title === product.title && "hidden"
-                    }`}
-                    key={item.title}
-                  >
-                    <button
-                      key={i}
-                      onClick={() => setOpenedImage(item.id)}
-                      className="text-blue-400 flex flex-col relative overflow-y-hidden group drop-shadow-sm shadow-black"
+              <ResponsiveMasonry
+                className="mt-4"
+                columnsCountBreakPoints={{ 350: 2, 750: 2, 900: 3, 1360: 4 }}
+              >
+                <Masonry>
+                  {products?.map((item: any, i: any) => (
+                    <div
+                      className={`border border-gray-500 ${
+                        item.title === product.title && "hidden"
+                      }`}
+                      key={item.title}
                     >
-                      <Image
-                        src={item.images[0].src}
-                        width={1024}
-                        height={1024}
-                        alt={`Obraz na płótnie ${item.title}`}
-                        className=" w-full h-full object-cover drop-shadow-lg shadow-black"
-                      />
-                      <div
-                        className={`absolute bottom-0 left-0 bg-[#444444] p-2 flex flex-col items-start justify-start w-full transition-all`}
+                      <button
+                        key={i}
+                        onClick={() => setOpenedImage(item.id)}
+                        className="flex flex-col relative overflow-y-hidden group drop-shadow-sm shadow-black"
                       >
-                        {item.title}
-                      </div>
-                    </button>
-                  </div>
-                ))}
-              </div>
+                        <Image
+                          src={item.images[0].src}
+                          width={1024}
+                          height={1024}
+                          alt={`Obraz na płótnie ${item.title}`}
+                          className=" w-full h-full object-cover drop-shadow-lg shadow-black"
+                        />
+                        <p
+                          className={`text-sm text-left text-white absolute bottom-0 left-0 bg-black p-2 flex flex-col items-start justify-start w-full transition-all`}
+                        >
+                          {item.title}
+                        </p>
+                      </button>
+                    </div>
+                  ))}
+                </Masonry>
+              </ResponsiveMasonry>
             </div>
             <div className="z-[102] sticky bottom-0 left-0 w-full h-12 bg-gray-700 text-gray-200 rounded-t-xl grid grid-cols-3">
               <button
