@@ -1,12 +1,9 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
-import { removeFromCart } from "@/redux/slices/shopSlice";
 import { ArtworkData } from "@/types";
 import Link from "next/link";
-import { format } from "path";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowLeft, FaShoppingCart } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
 import { getPolishCurrency } from "../../../utils/getPolishCurrency";
 
 export default function CheckoutSummary({ cart }: { cart: any }) {

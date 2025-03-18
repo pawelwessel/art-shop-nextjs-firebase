@@ -1,6 +1,5 @@
 import { getShopProduct } from "@/lib/getShopProduct";
 import Image from "next/image";
-import Link from "next/link";
 
 export default async function Page() {
   const products = await getShopProduct();

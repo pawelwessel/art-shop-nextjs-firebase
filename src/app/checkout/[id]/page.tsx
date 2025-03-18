@@ -1,9 +1,10 @@
-import { getCheckout } from "@/firebase";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 import ClearCache from "./ClearCache";
 
-export default async function Checkout(props: { params: Promise<{ id: string }> }) {
+export default async function Checkout(props: {
+  params: Promise<{ id: string }>;
+}) {
   const params = await props.params;
   const orders = await fetch(
     `${process.env.NEXT_PUBLIC_SITE_URL}/api/stripe/orders?secret=${process.env.API_SECRET_KEY}`,

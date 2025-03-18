@@ -1,4 +1,3 @@
-import { FaUser } from "react-icons/fa";
 import moment from "moment";
 import "moment/locale/pl";
 

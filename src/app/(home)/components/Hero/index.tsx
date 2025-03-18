@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import background from "../../../../../public/background.webp";
 import bg from "../../../../../public/bg.png";
-import { FaChevronDown } from "react-icons/fa";
 export default function Hero() {
   return (
     <div className="flex flex-col items-center justify-end overflow-hidden">

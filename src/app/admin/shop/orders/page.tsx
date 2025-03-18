@@ -1,5 +1,4 @@
 "use server";
-import Link from "next/link";
 import AdminOrders from "./AdminOrders";
 
 export default async function Page() {

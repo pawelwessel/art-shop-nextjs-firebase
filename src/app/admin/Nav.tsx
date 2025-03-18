@@ -4,21 +4,15 @@ import Link from "next/link";
 import {
   FaArrowLeft,
   FaArtstation,
-  FaCaravan,
-  FaChartLine,
   FaChevronDown,
   FaClipboardList,
-  FaCog,
   FaEdit,
   FaHome,
   FaImages,
   FaPlus,
-  FaRemoveFormat,
   FaShoppingCart,
   FaSignOutAlt,
-  FaTags,
   FaUpload,
-  FaUsers,
 } from "react-icons/fa";
 
 import { useState } from "react";

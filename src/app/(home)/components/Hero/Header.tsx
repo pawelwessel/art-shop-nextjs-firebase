@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { FaArtstation, FaHome, FaBars, FaTimes } from "react-icons/fa";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 

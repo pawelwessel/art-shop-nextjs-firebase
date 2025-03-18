@@ -27,55 +27,6 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 const auth = getAuth(app);
 const analytics = isSupported().then((yes) => (yes ? getAnalytics(app) : null));
-// checkouts
-async function getCheckout(id) {
-  const docRef = doc(db, websiteName, "checkouts");
-  const docSnap = await getDoc(docRef);
-  const data = docSnap.data();
-  if (data) {
-    const checkouts = data.checkouts;
-    const checkout = checkouts.find((checkout) => checkout.id === id);
-    return checkout;
-  }
-  return null;
-}
-async function getCheckouts() {
-  const docRef = doc(db, websiteName, "checkouts");
-  const docSnap = await getDoc(docRef);
-
-  return docSnap.data();
-}
-async function updateCheckout(checkoutId, updatedCheckout) {
-  const docRef = doc(db, websiteName, "checkouts");
-  const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
-    const checkouts = docSnap.data().checkouts;
-    const checkoutIndex = checkouts.findIndex(
-      (checkout) => checkout.id === checkoutId
-    );
-    if (checkoutIndex !== -1) {
-      const updatedCheckouts = [...checkouts];
-      updatedCheckouts[checkoutIndex] = {
-        ...updatedCheckout,
-        payment_status: "paid",
-      };
-      await updateDoc(docRef, { checkouts: updatedCheckouts });
-    }
-  }
-}
-async function addCheckout(checkout) {
-  const docRef = doc(db, websiteName, "checkouts");
-  const docSnap = await getDoc(docRef);
-  if (!docSnap.data()) {
-    await setDoc(doc(db, websiteName, "checkouts"), {
-      checkouts: [checkout],
-    });
-  } else {
-    await updateDoc(doc(db, websiteName, "checkouts"), {
-      checkouts: arrayUnion(checkout),
-    });
-  }
-}
 async function getDocuments(collectionName) {
   const ref = collection(db, collectionName);
   const response = await getDocs(ref);
@@ -102,10 +53,6 @@ async function updateDocument(keys, values, collectionName, id) {
 export {
   storage,
   auth,
-  getCheckout,
-  addCheckout,
-  getCheckouts,
-  updateCheckout,
   addDocument,
   getDocuments,
   removeDocument,
