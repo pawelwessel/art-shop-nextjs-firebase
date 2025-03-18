@@ -1,4 +1,3 @@
-import { CartItem } from "@/types";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
@@ -8,12 +7,12 @@ export async function POST(request: Request) {
   const { listOfProducts, customerInfo } = await request.json();
   const id = uuidv4();
   const hasError = listOfProducts.some(
-    (product: CartItem) => product.error === true
+    (product: any) => product.error === true
   );
   if (hasError) {
     return NextResponse.json({ error: "Request Malwared" });
   }
-  const amount = listOfProducts.reduce((total: number, product: CartItem) => {
+  const amount = listOfProducts.reduce((total: number, product: any) => {
     return total + product.price;
   }, 0);
 
