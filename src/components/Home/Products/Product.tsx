@@ -77,9 +77,7 @@ export default function Product({
             <Disclaimer />
             <MoreProducts
               setOpenedImage={setOpenedImage}
-              products={[...products]
-                .sort(() => 0.5 - Math.random())
-                .slice(0, 10)}
+              products={products}
               product={product}
             />
             <ProductNavigation

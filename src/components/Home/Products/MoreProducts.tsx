@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { useMemo } from "react";
 
 export default function MoreProducts({
   product,
@@ -10,6 +11,10 @@ export default function MoreProducts({
   products: any;
   setOpenedImage: Function;
 }) {
+  const displayedProducts = useMemo(() => {
+    return [...products].sort(() => 0.5 - Math.random()).slice(0, 10);
+  }, [products]);
+
   return (
     <div className="pb-6">
       <h3 className="mt-8 text-black text-lg sm:text-xl xl:text-2xl text-center lg:text-left font-bold flex flex-row items-center">
@@ -20,7 +25,7 @@ export default function MoreProducts({
         columnsCountBreakPoints={{ 350: 2, 750: 2, 900: 3, 1360: 4 }}
       >
         <Masonry>
-          {products?.map((item: any, i: any) => (
+          {displayedProducts?.map((item: any, i: any) => (
             <div
               className={`border border-gray-500 ${
                 item.title === product.title && "hidden"
