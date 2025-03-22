@@ -8,9 +8,7 @@ import ClientFormWrapper from "@/components/Home/CtaForm/ClientFormWrapper";
 export default async function Page() {
   const products = await fetch(
     `${process.env.NEXT_PUBLIC_SITE_URL}/api/products`,
-    {
-      cache: "no-store",
-    }
+    { next: { revalidate: 0 } }
   ).then((res) => res.json());
 
   return (
