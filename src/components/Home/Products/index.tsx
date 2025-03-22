@@ -4,9 +4,12 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import Checkout from "@/components/Checkout";
 import { getDocuments } from "@/firebase";
-const Masonry = dynamic(() => import("react-responsive-masonry"));
-const ResponsiveMasonry = dynamic(() =>
-  import("react-responsive-masonry").then((mod) => mod.ResponsiveMasonry)
+const Masonry = dynamic(() => import("react-responsive-masonry"), {
+  ssr: false,
+});
+const ResponsiveMasonry = dynamic(
+  () => import("react-responsive-masonry").then((mod) => mod.ResponsiveMasonry),
+  { ssr: false }
 );
 export default function Products() {
   const [openedImage, setOpenedImage] = useState<any>(null);
