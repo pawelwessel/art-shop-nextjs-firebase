@@ -6,7 +6,7 @@ import Hero from "@/components/Home/Hero";
 import Products from "@/components/Home/Products";
 import ClientFormWrapper from "@/components/Home/CtaForm/ClientFormWrapper";
 import { getProducts } from "@/lib/getProducts";
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 export default async function Page() {
   const products = await getProducts();
   return (
