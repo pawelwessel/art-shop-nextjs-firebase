@@ -1,5 +1,4 @@
 "use client";
-import { ArtworkData } from "@/types";
 import Product from "./Product";
 import { useState } from "react";
 import dynamic from "next/dynamic";
@@ -11,22 +10,26 @@ const ResponsiveMasonry = dynamic(
   () => import("react-responsive-masonry").then((mod) => mod.ResponsiveMasonry),
   { ssr: false }
 );
-export default function Products({ products }: { products: ArtworkData[] }) {
+export default function Products({ products }: { products: any }) {
   const [openedImage, setOpenedImage] = useState<any>(null);
   const [filter, setFilter] = useState("all");
   const [priceFilter, setPriceFilter] = useState("all");
 
   const filterProducts = () => {
-    let filteredProducts = products;
+    let filteredProducts = [...products];
     if (filter !== "all") {
       filteredProducts = filteredProducts.filter(
-        (product) => product.category === filter
+        (product: any) => product.category === filter
       );
     }
     if (priceFilter === "low-to-high") {
-      filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+      filteredProducts = filteredProducts.sort(
+        (a: any, b: any) => a.price - b.price
+      );
     } else if (priceFilter === "high-to-low") {
-      filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
+      filteredProducts = filteredProducts.sort(
+        (a: any, b: any) => b.price - a.price
+      );
     }
 
     return filteredProducts;
