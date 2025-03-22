@@ -10,9 +10,6 @@ export default async function Page() {
     `${process.env.NEXT_PUBLIC_SITE_URL}/api/products`,
     {
       cache: "no-store",
-      next: {
-        revalidate: 30,
-      },
     }
   ).then((res) => res.json());
 
