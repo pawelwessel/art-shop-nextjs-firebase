@@ -5,9 +5,10 @@ import PrepareCart from "@/components/Home/PrepareCart";
 import Hero from "@/components/Home/Hero";
 import Products from "@/components/Home/Products";
 import ClientFormWrapper from "@/components/Home/CtaForm/ClientFormWrapper";
-import { getProducts } from "@/lib/getProducts";
+import { getDocuments } from "@/firebase";
+export const dynamic = "force-dynamic";
 export default async function Page() {
-  const products = await getProducts();
+  const products = await getDocuments();
   return (
     <div className="bg-white flex flex-col justify-center w-full">
       <PrepareCart />
