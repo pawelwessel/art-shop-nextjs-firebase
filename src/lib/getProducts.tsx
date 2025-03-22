@@ -1,8 +1,8 @@
 "use server";
-
-import { getDocuments } from "@/firebase";
-
 export async function getProducts() {
-  const products: any = getDocuments("products");
+  const req = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products`, {
+    next: { revalidate: 60 },
+  });
+  const products = await req.json();
   return products;
 }
