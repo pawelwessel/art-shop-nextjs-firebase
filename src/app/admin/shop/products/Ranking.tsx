@@ -1,7 +1,7 @@
 import { FaTrophy } from "react-icons/fa";
 
 export default function Ranking({ data }: { data: any }) {
-  const sortedData = data
+  const sortedData = [...data]
     .filter((item: any) => item?.views)
     .sort((a: any, b: any) => b.views - a.views)
     .slice(0, 3);
