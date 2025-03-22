@@ -103,8 +103,7 @@ export default function ProductEditor({
         pauseOnHover: true,
       });
       setLoading(false);
-      revalidatePath("/");
-      revalidatePath("/admin/shop/products/");
+      revalidatePath("/", "layout");
     });
     setIsAdded(true);
   }
@@ -181,8 +180,7 @@ export default function ProductEditor({
         })
       );
       setLoading(false);
-      revalidatePath("/");
-      revalidatePath("/admin/shop/products/");
+      revalidatePath("/", "layout");
     });
     setEditOpen(false);
   }
