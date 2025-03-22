@@ -44,8 +44,8 @@ export async function POST(request: Request) {
         },
       ],
       mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/${id}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/${id}`,
+      success_url: `checkout/${id}`,
+      cancel_url: `checkout/${id}`,
       locale: "pl",
       metadata: {
         productName: `Zamówienie: ${paymentName}`,
