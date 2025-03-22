@@ -65,7 +65,7 @@ export default function Page() {
     }
   };
   return (
-    <div className="bg-white min-h-screen w-full py-32 px-5 lg:px-[8vw] xl:px-[12vw] flex flex-col items-center justify-center font-coco">
+    <div className="bg-white min-h-screen w-full py-32 px-5 lg:px-[8vw] xl:px-[12vw] flex flex-col items-center justify-center">
       <Header />
       <PrepareCart />
       <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-12 text-zinc-800 drop-shadow-md shadow-black">

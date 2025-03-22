@@ -10,10 +10,12 @@ export default function Cart({
   isCartOpen,
   setCartOpen,
   cart,
+  setIsCheckout,
 }: {
   isCartOpen: boolean;
   setCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cart: any;
+  setIsCheckout: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const dispatch = useDispatch();
   return (
@@ -25,13 +27,16 @@ export default function Cart({
         ></div>
       )}
       {isCartOpen && (
-        <div className="z-[80] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[76vh] w-[90%] md:w-[30rem] overflow-y-scroll bg-white p-4 sm:px-6 lg:px-8 h-max">
-          <p className="font-cardo text-lg text-black font-bold">Koszyk</p>
+        <div className="z-[80] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[76vh] w-[90%] md:w-[30rem] overflow-y-scroll bg-white p-6 h-max">
+          <h2 className="font-cardo text-black font-bold text-2xl">Koszyk</h2>
+          <p className="text-sm text-gray-700">
+            Przejdź do płatności lub kontynuuj zakupy.
+          </p>
           <div className="flex flex-col items-center justify-center w-full">
             {!cart?.length && (
               <>
                 <FaShoppingCart className="text-7xl text-gray-400 mt-12" />
-                <p className="text-gray-400 mt-5 text-center text-sm lg:text-base mb-3">
+                <p className="text-gray-400 mt-5 text-center text-sm lg:text-base mb-12">
                   Twój koszyk jest pusty...
                 </p>
               </>
@@ -40,30 +45,25 @@ export default function Cart({
               <div className="grid grid-cols-1 mt-4 text-zinc-800 drop-shadow-md shadow-black w-full">
                 {cart?.map((item: ArtworkData, i: any) => (
                   <div key={i}>
-                    <div className="flex flex-row justify-between bg-gray-200 w-full">
-                      <div className="flex flex-row items-start w-full p-2">
-                        <div className="aspect-square w-24 h-24">
+                    <div className="flex flex-row items-start justify-between w-full">
+                      <div className="flex flex-row w-full items-start justify-start h-full">
+                        <div className="aspect-square h-[85px] w-[85px] overflow-hidden shadow-md shadow-gray-300">
                           <Image
-                            width={244}
-                            height={244}
-                            src={item?.mainImage}
-                            alt=""
-                            className="w-full h-full object-cover"
+                            width={333}
+                            height={333}
+                            src={item?.mainImage || item?.images[0].src}
+                            alt={item.title}
+                            className="w-full h-full object-cover my-auto"
                           />
                         </div>
-                        <div className="pl-2 w-full">
-                          <p className="font-bold">
-                            {item.title}{" "}
-                            {item.dimensions && (
-                              <span className="font-normal text-gray-500">
-                                ({item.dimensions})
-                              </span>
-                            )}
-                          </p>
-                          <p className="font-bold">
-                            {item.price > 0 && getPolishCurrency(item.price)}
-                          </p>
 
+                        <div className="flex flex-col items-start justify-start pl-2 w-2/3">
+                          <div className="">
+                            <p className="font-bold font-cardo">{item.title}</p>
+                            <p className="text-black text-sm font-cardo">
+                              {item.dimensions}
+                            </p>
+                          </div>
                           <button
                             onClick={() => {
                               dispatch(removeFromCart(item));
@@ -72,6 +72,11 @@ export default function Cart({
                           >
                             usuń
                           </button>
+                        </div>
+                      </div>
+                      <div className="text-lg w-max">
+                        <div className="w-max font-cardo">
+                          {getPolishCurrency(item.price)}
                         </div>
                       </div>
                     </div>
@@ -86,19 +91,22 @@ export default function Cart({
               {cart?.length === 0 && (
                 <button
                   disabled={!cart?.length}
-                  className="disabled:cursor-not-allowed hover:disabled:blur-sm duration-200 block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-900 w-full"
+                  className="disabled:cursor-not-allowed duration-200 block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-900 w-full"
                 >
-                  Do płatności
+                  Podsumowanie
                 </button>
               )}
               {cart?.length > 0 && (
-                <Link
+                <button
                   title="Przejdź do płatności"
-                  href="/checkout"
-                  className="duration-200 block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-900 w-full"
+                  onClick={() => {
+                    setCartOpen(false);
+                    setIsCheckout(true);
+                  }}
+                  className="duration-200 block rounded bg-black px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-800 w-full"
                 >
-                  Do płatności
-                </Link>
+                  Podsumowanie
+                </button>
               )}
               <button
                 onClick={() => setCartOpen(false)}

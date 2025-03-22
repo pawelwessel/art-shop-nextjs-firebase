@@ -1,9 +1,19 @@
-import AddProduct from "./AddProduct";
+import ProductEditor from "./ProductEditor";
 
 export default async function Page() {
   return (
-    <div className="relative">
-      <AddProduct />
-    </div>
+    <ProductEditor
+      data={{
+        title: "",
+        images: [],
+        tags: [],
+        price: 0,
+        description: "",
+        dimensions: "",
+        mainImage: "",
+        category: "",
+      }}
+      isEdit={false}
+    />
   );
 }

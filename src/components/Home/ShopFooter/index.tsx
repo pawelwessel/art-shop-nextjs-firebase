@@ -23,7 +23,7 @@ export default function ShopFooter({
         isProductSlug
           ? "px-6 md:px-[8vw] lg:px-3 lg:pl-12 xl:px-12"
           : "lg:px-[8vw] xl:px-[12vw]"
-      } font-coco`}
+      }`}
     >
       <div
         className={`grid grid-cols-1 ${
@@ -39,7 +39,7 @@ export default function ShopFooter({
         >
           <h2 className="text-2xl font-bold text-green-300 w-full">Kontakt</h2>
           <Link
-            className="text-left text-white font-coco flex flex-row items-center text-lg lg:text-base  xl:text-lg mt-1 w-max"
+            className="text-left text-white flex flex-row items-center text-lg lg:text-base  xl:text-lg mt-1 w-max"
             href="tel:570974740"
             title="Zadzwoń"
           >
@@ -47,7 +47,7 @@ export default function ShopFooter({
             +48 570 974 740
           </Link>
           <Link
-            className="text-left text-white font-coco flex flex-row items-center text-lg lg:text-base  xl:text-lg mt-1 w-max"
+            className="text-left text-white flex flex-row items-center text-lg lg:text-base  xl:text-lg mt-1 w-max"
             href="mailto:eliza.czer09@gmail.com"
             title="Wyślij email"
           >
@@ -63,7 +63,7 @@ export default function ShopFooter({
           <h2 className="text-2xl font-bold text-green-300 mt-4 sm:mt-0">
             Social Media
           </h2>
-          <div className="text-white font-coco">
+          <div className="text-white">
             <Link
               target="_blank"
               href="https://www.instagram.com/blackbell.ce/"

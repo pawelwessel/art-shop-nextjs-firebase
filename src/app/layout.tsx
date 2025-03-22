@@ -1,11 +1,12 @@
 import "../styles/globals.css";
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
 import { Providers } from "@/redux/Provider";
 import Script from "next/script";
 import Header from "../components/Home/Hero/Header";
 import { Cardo } from "next/font/google";
+import { Ubuntu } from "next/font/google";
 import PrepareCart from "../components/Home/PrepareCart";
+
 export default async function RootLayout({
   children,
 }: {
@@ -13,7 +14,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="pl">
-      <body className={`${cocosharp.variable} ${cardo.variable}`}>
+      <body className={`${cardo.variable} ${ubuntu.variable}`}>
         <Providers>
           <PrepareCart />
           <Header />
@@ -40,41 +41,12 @@ const cardo = Cardo({
   display: "swap",
   variable: "--font-cardo",
 });
-const cocosharp = localFont({
-  src: [
-    {
-      path: "../../public/fonts/Italic.ttf",
-      weight: "400",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/BoldItalic.ttf",
-      weight: "700",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/Bold.ttf",
-      weight: "700",
-    },
-    {
-      path: "../../public/fonts/ExtraLight.ttf",
-      weight: "200",
-    },
-    {
-      path: "../../public/fonts/Light.ttf",
-      weight: "300",
-    },
-    {
-      path: "../../public/fonts/LightItalic.ttf",
-      weight: "300",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/Regular.ttf",
-      weight: "500",
-    },
-  ],
-  variable: "--font-cocosharp",
+const ubuntu = Ubuntu({
+  weight: ["300", "400", "700"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-ubuntu",
 });
 export const viewport: Viewport = {
   width: "device-width",

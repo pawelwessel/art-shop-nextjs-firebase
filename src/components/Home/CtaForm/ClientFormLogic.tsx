@@ -9,6 +9,7 @@ export default function ClientFormLogic() {
     size: undefined,
     technique: undefined,
     color: undefined,
+    base: undefined,
     phone: "",
   });
   const [isSending, setIsSending] = useState<any>(undefined);
@@ -33,10 +34,12 @@ export default function ClientFormLogic() {
             </span>
             <div className="-ml-2 flex flex-row flex-wrap">
               {[
-                "Realistyczny",
-                "Impresjonistyczny",
-                "Abstrakcyjny",
+                "Abstrakcja",
+                "Contemporary art",
+                "Reprodukcja dzieła sztuki",
                 "Minimalistyczny",
+                "Realistyczny",
+                "Realizm magiczny",
                 "Inny",
               ].map((style) => (
                 <button
@@ -86,21 +89,26 @@ export default function ClientFormLogic() {
               Wybierz technikę
             </span>
             <div className="-ml-2 flex flex-row flex-wrap">
-              {["Ołówek", "Pastel", "Akryl", "Olej", "Inna"].map(
-                (technique) => (
-                  <button
-                    key={technique}
-                    onClick={() => setFormData({ ...formData, technique })}
-                    className={`${
-                      formData.technique === technique
-                        ? "border-black"
-                        : "border-green-500"
-                    } border-dashed border-2 mt-2 ml-2 p-2 py-0 font-light text-base bg-green-500 hover:bg-green-400 text-white`}
-                  >
-                    {technique}
-                  </button>
-                )
-              )}
+              {[
+                "Farby akrylowe",
+                "Farby olejne",
+                "Akwarele",
+                "Kredki",
+                "Ołówek",
+                "Inna",
+              ].map((technique) => (
+                <button
+                  key={technique}
+                  onClick={() => setFormData({ ...formData, technique })}
+                  className={`${
+                    formData.technique === technique
+                      ? "border-black"
+                      : "border-green-500"
+                  } border-dashed border-2 mt-2 ml-2 p-2 py-0 font-light text-base bg-green-500 hover:bg-green-400 text-white`}
+                >
+                  {technique}
+                </button>
+              ))}
             </div>
           </div>
           <div className="flex flex-col justify-center border-t border-green-500 py-6 px-6 relative">
@@ -113,7 +121,14 @@ export default function ClientFormLogic() {
               Wybierz kolorystykę
             </span>
             <div className="-ml-2 flex flex-row flex-wrap">
-              {["Czarno-biały", "Kolorowy", "Jaskrawy", "Inny"].map((color) => (
+              {[
+                "Czarno-biały",
+                "Kolorowy",
+                "Realistyczne kolory",
+                "Moja inwencja twórcza",
+                "Monochromatyczne",
+                "Inny",
+              ].map((color) => (
                 <button
                   key={color}
                   onClick={() => setFormData({ ...formData, color })}
@@ -128,28 +143,76 @@ export default function ClientFormLogic() {
               ))}
             </div>
           </div>
+          <div className="flex flex-col justify-center border-t border-green-500 py-6 px-6 relative">
+            <span className="font-bold text-lg">
+              {formData.base !== undefined && (
+                <div className="text-2xl absolute left-2 top-4 -translate-y-1/2 text-green-500">
+                  <FaCheckCircle />
+                </div>
+              )}
+              Wybierz podłoże malarskie
+            </span>
+            <div className="-ml-2 flex flex-row flex-wrap">
+              {[
+                "Kartka papieru",
+                "Płótno bawełniane",
+                "Płótno lniane",
+                "Podobrazie płytowe",
+                "Podobrazie drewniane",
+                "Inny",
+              ].map((base) => (
+                <button
+                  key={base}
+                  onClick={() => setFormData({ ...formData, base })}
+                  className={`${
+                    formData.base === base ? "border-black" : "border-green-500"
+                  } border-dashed border-2 mt-2 ml-2 p-2 py-0 font-light text-base bg-green-500 hover:bg-green-400 text-white`}
+                >
+                  {base}
+                </button>
+              ))}
+            </div>
+          </div>
         </form>
         {formData.color &&
           formData.size &&
           formData.technique &&
-          formData.style && (
+          formData.style &&
+          formData.base && (
             <div
               style={{ boxShadow: "0px 0px 3px black" }}
               className="absolute bottom-0 left-0 p-6 w-full bg-white z-[500]"
             >
-              <div className="">
-                <h2 className="text-xl mb-3">Numer telefonu:</h2>
-                <input
-                  style={{ boxShadow: "0px 0px 3px black" }}
-                  className="w-full sm:w-auto p-2 placeholder:font-light focus:outline-2 focus:outline-green-500"
-                  type="text"
-                  onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
-                  }
-                  value={formData.phone}
-                  placeholder="Wpisz numer"
-                />
-                <p className="text-sm text-gray-500 mt-2">
+              <div>
+                <div className="flex gap-3">
+                  <div>
+                    <h2 className="font-bold text-sm sm:text-base">Imię:</h2>
+                    <input
+                      className="border border-gray-400 w-full sm:w-auto p-2 placeholder:font-light focus:outline-2 focus:outline-green-500 mb-1"
+                      type="text"
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
+                      value={formData.name}
+                      placeholder="Twoje imię"
+                    />
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-sm sm:text-base">
+                      Numer telefonu:
+                    </h2>
+                    <input
+                      className="border border-gray-400 w-full sm:w-auto p-2 placeholder:font-light focus:outline-2 focus:outline-green-500"
+                      type="text"
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
+                      value={formData.phone}
+                      placeholder="Wpisz numer"
+                    />
+                  </div>
+                </div>
+                <p className="text-sm text-gray-500">
                   Porozmawiamy o projekcie w ciągu najbliższych dwóch dni
                   roboczych.
                 </p>
@@ -161,7 +224,7 @@ export default function ClientFormLogic() {
               )}
               <div className="flex flex-col-reverse lg:flex-row items-center w-full mt-2">
                 <button
-                  onClick={() => setFormData({ ...formData, color: undefined })}
+                  onClick={() => setFormData({ ...formData, base: undefined })}
                   className="mt-2 lg:mr-4"
                 >
                   Powrót
@@ -170,11 +233,15 @@ export default function ClientFormLogic() {
                   disabled={isSending === "success"}
                   onClick={() => {
                     const id = uuidv4();
-                    addDocument("leads", id, { ...formData, id }).then(() => {
+                    addDocument("leads", id, {
+                      ...formData,
+                      id,
+                      type: "order",
+                    }).then(() => {
                       setIsSending("success");
                     });
                   }}
-                  className="font-cardo flex flex-row items-center justify-center py-2 w-full text-base sm:w-max bg-black hover:scale-110 duration-200 ease-in-out text-white cursor-pointer font-bold mt-2"
+                  className="font-cardo flex flex-row items-center justify-center py-2 w-full text-base sm:w-max bg-black hover:bg-gray-800 duration-200 text-white font-bold mt-2 px-4"
                 >
                   Otrzymaj wycenę <FaArrowRight className="ml-2" />
                 </button>

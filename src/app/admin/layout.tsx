@@ -18,7 +18,7 @@ export default function AdminLayout({
     return <Loading />;
   } else
     return (
-      <div className="w-full font-coco relative z-[9999] bg-white">
+      <div className="w-full relative z-[9999] bg-white">
         <Toast />
         {user ? (
           <>
@@ -26,7 +26,7 @@ export default function AdminLayout({
             <div
               className={`${
                 isNavOpen ? "pl-[300px]" : "pl-[0px]"
-              } duration-500 min-w-full min-h-screen bg-white`}
+              } duration-500 min-w-full min-h-screen bg-white font-pt`}
             >
               {children}
             </div>

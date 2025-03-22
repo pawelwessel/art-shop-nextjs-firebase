@@ -3,6 +3,7 @@ import { ArtworkData } from "@/types";
 import Product from "./Product";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import Checkout from "@/components/Checkout";
 const Masonry = dynamic(() => import("react-responsive-masonry"), {
   ssr: false,
 });
@@ -32,9 +33,13 @@ export default function Products({ products }: { products: ArtworkData[] }) {
   };
 
   const filteredProducts = filterProducts();
+  const [isCheckout, setIsCheckout] = useState(false);
 
   return (
     <div className="mx-5 lg:mx-[8vw] xl:mx-[12vw]">
+      {isCheckout && (
+        <Checkout setIsCheckout={setIsCheckout} isCheckout={isCheckout} />
+      )}
       <h2 className="text-xl sm:text-3xl lg:text-4xl font-bold text-zinc-900 w-max max-w-full leading-tight">
         Witaj w moim sklepie
       </h2>
@@ -96,10 +101,11 @@ export default function Products({ products }: { products: ArtworkData[] }) {
                 products={products}
                 openedImage={openedImage}
                 setOpenedImage={setOpenedImage}
+                setIsCheckout={setIsCheckout}
               />
             ))
           ) : (
-            <div className="p-4 bg-gray-200"> Brak wyników... </div>
+            <div className="p-4 bg-gray-200">Brak wyników... </div>
           )}
         </Masonry>
       </ResponsiveMasonry>

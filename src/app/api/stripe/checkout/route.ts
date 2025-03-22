@@ -1,26 +1,30 @@
+import { getDocument } from "@/firebase";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
 const stripe = require("stripe")(`${process.env.STRIPE_SECRET}`);
 
 export async function POST(request: Request) {
-  const { listOfProducts, customerInfo } = await request.json();
+  const { cartItems, customerInfo } = await request.json();
   const id = uuidv4();
-  const hasError = listOfProducts.some(
-    (product: any) => product.error === true
+  const cartItemsWithDetails = await Promise.all(
+    cartItems.map(async (item: any) => {
+      const productDetails = await getDocument("products", item.id);
+      return { ...item, ...productDetails };
+    })
   );
-  if (hasError) {
-    return NextResponse.json({ error: "Request Malwared" });
-  }
-  const amount = listOfProducts.reduce((total: number, product: any) => {
+  const amount = cartItemsWithDetails.reduce((total: number, product: any) => {
     return total + product.price;
   }, 0);
 
-  const paymentName = listOfProducts
+  let paymentName = cartItemsWithDetails
     .map((product: any) => product.title)
     .join(", ");
+  if (paymentName.length > 250) {
+    paymentName = paymentName.substring(0, 247) + "...";
+  }
 
-  const products = listOfProducts.map((product: any) => product.title);
+  const products = cartItemsWithDetails.map((product: any) => product.title);
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -30,7 +34,7 @@ export async function POST(request: Request) {
             currency: "pln",
             unit_amount:
               amount < 250
-                ? Math.floor(amount * 100)
+                ? Math.floor((amount + 20) * 100)
                 : Math.floor(amount * 100),
             product_data: {
               name: paymentName,

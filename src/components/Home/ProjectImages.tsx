@@ -105,59 +105,54 @@ export default function ProjectImages({
                 } `}
                 key={i}
               >
-                <div className="bg-red-500 relative">
+                <div className="relative h-[80vh] flex items-center justify-center">
                   <Image
                     src={image.src}
                     width={1024}
                     height={1024}
                     alt={"Obraz usługi"}
-                    className="w-auto max-h-[80vh] mx-auto"
+                    className="w-auto max-h-full mx-auto aspect-auto"
                     draggable="false"
                   />
-                  <div className="absolute left-16 top-2 font-bold text-white max-w-full">
-                    {image.desc}
-                  </div>
-                  <div className="font-cardo text-lg w-max mx-auto absolute left-0 -top-8 bg-gradient-to-r from-primaryHoverStart to-primaryHoverEnd text-white">
-                    {currentIndex + 1} / {service.images.length}
-                  </div>
-                  <button
-                    onClick={() => handlePrev()}
-                    className="z-[101] duration-500 bg-gradient-to-r from-primaryHoverStart to-primaryHoverEnd hover:from-primaryHoverStart/80 hover:to-primaryHoverEnd/80 text-white text-lg p-3 absolute left-0 top-1/2 -translate-y-1/2 bg-black/50 group-hover:opacity-100 opacity-0"
-                  >
-                    <FaChevronLeft />
-                  </button>
-                  <button
-                    onClick={() => handleNext()}
-                    className="z-[101] duration-500 bg-gradient-to-r from-primaryHoverStart to-primaryHoverEnd hover:from-primaryHoverStart/80 hover:to-primaryHoverEnd/80 text-white text-lg p-3 absolute right-0 top-1/2 -translate-y-1/2 bg-black/50 group-hover:opacity-100 opacity-0"
-                  >
-                    <FaChevronRight />
-                  </button>
-                  {service.images && (
-                    <div className="z-50 w-full absolute bottom-0 left-1/2 -translate-x-1/2 max-w-full overflow-x-auto whitespace-nowrap space-x-2 pt-2 group-hover:bg-black/50 opacity-0 group-hover:opacity-100 bg-transparent duration-500 px-3 scrollbar">
-                      {service.images.map((image: any, i: number) => (
-                        <button
-                          onClick={() => setCurrentIndex(i)}
-                          key={i}
-                          className={`relative h-[70px] w-auto border-2 ${
-                            currentIndex === i
-                              ? "border-white"
-                              : "border-transparent"
-                          }`}
-                        >
-                          <Image
-                            src={image.src}
-                            width={300}
-                            height={300}
-                            alt={"Obraz usługi"}
-                            className="h-full w-auto"
-                          />
-                        </button>
-                      ))}
-                    </div>
-                  )}
                 </div>
               </div>
             ))}
+            <div className="font-cardo text-lg w-max mx-auto absolute left-0 -top-8 bg-gradient-to-r from-primaryHoverStart to-primaryHoverEnd text-white">
+              {currentIndex + 1} / {service.images.length}
+            </div>
+            <button
+              onClick={() => handlePrev()}
+              className="z-[101] duration-500 bg-gradient-to-r from-primaryHoverStart to-primaryHoverEnd hover:from-primaryHoverStart/80 hover:to-primaryHoverEnd/80 text-white text-lg p-3 absolute left-0 top-1/2 -translate-y-1/2 bg-black/50 group-hover:opacity-100 opacity-0"
+            >
+              <FaChevronLeft />
+            </button>
+            <button
+              onClick={() => handleNext()}
+              className="z-[101] duration-500 bg-gradient-to-r from-primaryHoverStart to-primaryHoverEnd hover:from-primaryHoverStart/80 hover:to-primaryHoverEnd/80 text-white text-lg p-3 absolute right-0 top-1/2 -translate-y-1/2 bg-black/50 group-hover:opacity-100 opacity-0"
+            >
+              <FaChevronRight />
+            </button>
+            {service.images && (
+              <div className="z-50 w-full h-max absolute bottom-0 left-1/2 -translate-x-1/2 max-w-full overflow-x-auto whitespace-nowrap space-x-2 pt-2 group-hover:bg-black/50 opacity-0 group-hover:opacity-100 bg-transparent duration-500 px-3 scrollbar">
+                {service.images.map((image: any, i: number) => (
+                  <button
+                    onClick={() => setCurrentIndex(i)}
+                    key={i}
+                    className={`relative h-[70px] w-auto border-2 ${
+                      currentIndex === i ? "border-white" : "border-transparent"
+                    }`}
+                  >
+                    <Image
+                      src={image.src}
+                      width={300}
+                      height={300}
+                      alt={"Obraz usługi"}
+                      className="h-full w-auto"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

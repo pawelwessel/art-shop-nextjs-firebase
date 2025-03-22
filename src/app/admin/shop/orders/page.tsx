@@ -1,22 +1,13 @@
 "use server";
+import { getDocuments } from "@/firebase";
 import AdminOrders from "./AdminOrders";
 
 export default async function Page() {
-  const orders = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/stripe/orders?secret=${process.env.API_SECRET_KEY}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      cache: "no-store",
-    }
-  ).then((res) => res.json());
+  const orders = await getDocuments("orders");
 
   return (
     <div className="relative">
-      <AdminOrders orders={orders.data} />
+      <AdminOrders orders={orders} />
     </div>
   );
 }

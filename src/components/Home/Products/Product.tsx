@@ -12,30 +12,38 @@ import ProductNavigation from "./ProductNavigation";
 import Disclaimer from "./Disclaimer";
 import ProductInteractions from "./ProductInteractions";
 import ProductDetails from "./ProductDetails";
-import PieceForm from "./PieceForm";
 import MoreProducts from "./MoreProducts";
+import Checkout from "@/components/Checkout";
 
 export default function Product({
   product,
   products,
   openedImage,
   setOpenedImage,
+  setIsCheckout,
 }: {
   product: ArtworkData;
   products: any[];
   openedImage: string;
   setOpenedImage: React.Dispatch<React.SetStateAction<any>>;
+  setIsCheckout: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [currentIndex, setCurrentIndex] = useState(-1);
-
   const cart = useSelector((state: any) => state.shop.cart);
   const [isImageOpen, setImageOpen] = useState(false);
   const [isCartOpen, setCartOpen] = useState(false);
-  const [openedPiece, setOpenedPiece] = useState("");
+  const [openedPiecePricing, setOpenedPiecePricing] = useState("");
+  const [isSending, setIsSending] = useState(false);
+  const [formData, setFormData] = useState({ phone: "", name: "" });
   return (
     <>
-      <PieceForm setOpenedPiece={setOpenedPiece} openedPiece={openedPiece} />
-      <Cart isCartOpen={isCartOpen} setCartOpen={setCartOpen} cart={cart} />
+      <Cart
+        isCartOpen={isCartOpen}
+        setCartOpen={setCartOpen}
+        cart={cart}
+        setIsCheckout={setIsCheckout}
+      />
+
       <ProjectImages
         service={product}
         currentIndex={currentIndex}
@@ -52,8 +60,8 @@ export default function Product({
           <div className="relative h-screen lg:h-[80vh] p-4 lg:p-12 w-screen lg:max-w-[80vw]">
             <ProductDetails product={product} />
             <div className="mt-4">
-              <div className="text-gray-800 text-lg border border-gray-400 px-3 py-1 w-max bg-gray-100 mb-4">
-                OPIS
+              <div className="text-gray-800 font-cardo text-lg border border-gray-400 px-3 py-1 w-max bg-gray-100 mb-4">
+                Parę słów o obrazie
               </div>
               <Viewer value={product.description} />
               <div className="mt-4 flex flex-wrap gap-2">
@@ -69,10 +77,15 @@ export default function Product({
             />
             <ProductInteractions
               setCartOpen={setCartOpen}
-              setPieceForm={setOpenedPiece}
+              setOpenedPiecePricing={setOpenedPiecePricing}
+              openedPiecePricing={openedPiecePricing}
               product={product}
               cart={cart}
               isCartOpen={isCartOpen}
+              isSending={isSending}
+              setIsSending={setIsSending}
+              formData={formData}
+              setFormData={setFormData}
             />
             <Disclaimer />
             <MoreProducts

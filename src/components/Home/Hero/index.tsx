@@ -1,6 +1,6 @@
 import Image from "next/image";
 import bg from "../../../../public/bg.png";
-import Cta from "../PieceForm";
+import Cta from "../CtaForm";
 export default function Hero() {
   return (
     <div className="flex flex-col items-center justify-end overflow-hidden">

@@ -8,6 +8,7 @@ import {
   arrayUnion,
   collection,
   getDocs,
+  deleteDoc,
 } from "firebase/firestore/lite";
 import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";

@@ -26,53 +26,40 @@ export default function Nav({
 }) {
   const [expandedItems, setExpandedItems] = useState([]);
 
-  const navItems = [
+  const navItems: any = [
     { title: "Przegląd", href: `/admin`, icon: <FaHome /> },
+    // {
+    //   title: "Blog",
+    //   href: `/admin/blog`,
+    //   expandable: true,
+    //   icon: <FaArtstation />,
+    //   subItems: [
+    //     {
+    //       title: "Nowy post",
+    //       href: `/admin/blog/new`,
+    //       icon: <FaUpload />,
+    //     },
+    //     {
+    //       title: "Edytuj post",
+    //       href: `/admin/blog/edit`,
+    //       icon: <FaEdit />,
+    //     },
+    //   ],
+    // },
     {
-      title: "Blog",
-      href: `/admin/blog`,
-      expandable: true,
-      icon: <FaArtstation />,
-      subItems: [
-        {
-          title: "Nowy post",
-          href: `/admin/blog/new`,
-          icon: <FaUpload />,
-        },
-        {
-          title: "Edytuj post",
-          href: `/admin/blog/edit`,
-          icon: <FaEdit />,
-        },
-      ],
+      title: "Dodaj produkt",
+      href: `/admin/shop/add-product`,
+      icon: <FaPlus />,
     },
     {
-      title: "Sklep",
-      href: `/admin/shop`,
-      expandable: true,
-      icon: <FaShoppingCart />,
-      subItems: [
-        {
-          title: "Moje obrazy",
-          href: `/admin/shop/products`,
-          icon: <FaImages />,
-        },
-        {
-          title: "Dodaj obraz",
-          href: `/admin/shop/add-product`,
-          icon: <FaPlus />,
-        },
-        {
-          title: "Dodaj naklejkę",
-          href: `/admin/shop/add-sticker`,
-          icon: <FaPlus />,
-        },
-        {
-          title: "Zamówienia",
-          href: `/admin/shop/orders`,
-          icon: <FaClipboardList />,
-        },
-      ],
+      title: "Wszystkie produkty",
+      href: `/admin/shop/products`,
+      icon: <FaImages />,
+    },
+    {
+      title: "Zamówienia",
+      href: `/admin/shop/orders`,
+      icon: <FaClipboardList />,
     },
     {
       title: "Logout",
@@ -83,7 +70,7 @@ export default function Nav({
 
   return (
     <div
-      className={`fixed z-[51] scrollbar font-coco !text-white duration-500 ${
+      className={`fixed z-[51] scrollbar font-ubuntu font-light !text-white duration-500 ${
         isNavOpen ? "translate-x-[0]" : "-translate-x-[300px]"
       }`}
     >
@@ -110,7 +97,7 @@ export default function Nav({
         </div>
         <div className="mt-12">
           <ul className="flex flex-col flex-wrap justify-between w-full px-2">
-            {navItems.map((item, index) => (
+            {navItems.map((item: any, index: any) => (
               <li
                 key={index}
                 className={`w-full ${item.expandable ? "relative" : ""}  `}
@@ -130,11 +117,7 @@ export default function Nav({
                     }}
                     className={`${
                       item.expandable ? "cursor-pointer" : ""
-                    } flex items-center justify-between py-2 px-4 rounded-md hover:bg-[#2F313C] w-full  ${
-                      expandedItems.includes(index as never)
-                        ? "bg-[#2F313C]"
-                        : "bg-[#222430]"
-                    }`}
+                    } flex items-center justify-between py-2 px-4 rounded-md hover:bg-[#2F313C] w-full`}
                   >
                     <span className="flex flex-row items-center">
                       <span className="mr-2">{item.icon}</span>
@@ -174,7 +157,7 @@ export default function Nav({
 
                 {item.expandable && expandedItems.includes(index as never) && (
                   <ul className=" bg-[#222430]  py-2 px-4 w-full">
-                    {item.subItems.map((subItem, subIndex) => (
+                    {item.subItems.map((subItem: any, subIndex: any) => (
                       <li key={subIndex}>
                         <Link href={subItem.href}>
                           <button className="flex items-center py-2 px-4 rounded-md hover:bg-[#2F313C] w-full">

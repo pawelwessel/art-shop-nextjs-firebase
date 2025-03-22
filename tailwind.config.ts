@@ -11,8 +11,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        coco: ["var(--font-cocosharp)"],
         cardo: ["var(--font-cardo)"],
+        ubuntu: ["var(--font-ubuntu)"],
       },
       backgroundImage: {
         "form-img": "url('/images/bg-lines/form.png')",

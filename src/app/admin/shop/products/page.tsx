@@ -1,26 +1,15 @@
-import { getDocuments } from "@/firebase";
-import Image from "next/image";
+import AdminProducts from "./AdminProducts";
+import Ranking from "./Ranking";
 
 export default async function Page() {
-  const products: any = await getDocuments("products");
+  const products: any = await fetch(
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/products`
+  ).then((res) => res.json());
   return (
-    <div>
-      <h1>Obrazy na stronie</h1>
-      <div className="flex flex-row flex-wrap h-max bg-rose-200">
-        {products?.length > 0 &&
-          products?.map((item: any, i: any) => (
-            <div className={`flex flex-col relative h-max`} key={i}>
-              <Image
-                className={`max-h-[300px] w-auto space-x-3 bg-gray-300`}
-                width={1024}
-                height={1024}
-                src={item.images[0].src}
-                alt=""
-                key={i}
-              />
-            </div>
-          ))}
-      </div>
+    <div className="p-6 lg:p-16">
+      <h1 className="text-3xl font-cardo text-black">Obrazy na stronie</h1>
+      <Ranking data={products} />
+      <AdminProducts data={products} />
     </div>
   );
 }

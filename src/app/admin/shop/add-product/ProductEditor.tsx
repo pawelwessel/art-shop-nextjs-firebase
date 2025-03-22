@@ -18,18 +18,20 @@ export const TOOLBAR_OPTIONS = [
   [{ indent: "-1" }, { indent: "+1" }],
   ["clean"],
 ];
-export default function AddProduct() {
+export default function ProductEditor({
+  data,
+  isEdit,
+  setEditOpen,
+  setProducts,
+}: {
+  data: any;
+  isEdit: boolean;
+  setEditOpen?: any;
+  setProducts?: any;
+}) {
   const [isLoading, setLoading] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
-  const [artworkData, setArtworkData] = useState<any>({
-    title: "",
-    images: [],
-    tags: [],
-    price: 0,
-    description: "",
-    dimensions: "",
-    mainImage: "",
-  });
+  const [artworkData, setArtworkData] = useState<any>(data);
   function add() {
     if (!artworkData.mainImage) {
       return toast.error("Proszę wybrać obrazek główny!", {
@@ -40,11 +42,56 @@ export default function AddProduct() {
         pauseOnHover: true,
       });
     }
+    if (!artworkData.category) {
+      return toast.error("Proszę wybrać kategorię!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+    if (!artworkData.title) {
+      return toast.error("Proszę wpisać tytuł!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+    if (!artworkData.description) {
+      return toast.error("Proszę wpisać opis!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+    if (!artworkData.tags) {
+      return toast.error("Proszę wpisać minimum 1 tag!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+    if (!artworkData.dimensions && artworkData.category !== "stickers") {
+      return toast.error("Proszę wpisać wymiary!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+
     setLoading(true);
     const randId = `image-${uuid()}`;
     addDocument("products", randId, {
       ...artworkData,
-      category: "paintings",
       id: randId,
     }).then(() => {
       toast.success("Dodano do sklepu pomyślnie!", {
@@ -57,6 +104,82 @@ export default function AddProduct() {
       setLoading(false);
     });
     setIsAdded(true);
+  }
+  function edit() {
+    if (!artworkData.mainImage) {
+      return toast.error("Proszę wybrać obrazek główny!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+    if (!artworkData.category) {
+      return toast.error("Proszę wybrać kategorię!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+    if (!artworkData.title) {
+      return toast.error("Proszę wpisać tytuł!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+    if (!artworkData.description) {
+      return toast.error("Proszę wpisać opis!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+    if (!artworkData.tags) {
+      return toast.error("Proszę wpisać minimum 1 tag!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+    if (!artworkData.dimensions && artworkData.category !== "stickers") {
+      return toast.error("Proszę wpisać wymiary!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+    setLoading(true);
+    addDocument("products", artworkData.id, artworkData).then(() => {
+      toast.success("Zaktualizowano produkt pomyślnie!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+      setProducts((prevData: any) =>
+        prevData.map((item: any) => {
+          if (item.id === artworkData.id) {
+            return artworkData;
+          }
+          return item;
+        })
+      );
+      setLoading(false);
+    });
+    setEditOpen(false);
   }
 
   const [isUploading, setUploading] = useState(false);
@@ -107,7 +230,7 @@ export default function AddProduct() {
   }
 
   return (
-    <div className="relative p-3 lg:p-16 bg-slate-600 min-h-screen">
+    <div className="font-ubuntu relative p-3 lg:p-16 bg-white min-h-screen">
       {isUploading && (
         <div className="z-[50] bg-black/70 text-white text-3xl font-light fixed left-0 top-0 w-full h-screen flex items-center justify-center text-center">
           Dodawanie {uploadCount} obrazów...
@@ -119,15 +242,17 @@ export default function AddProduct() {
         </div>
       )}
       <div className="w-full">
-        <h1 className="text-center text-2xl lg:text-4xl font-bold text-white">
-          Dodajesz nowy obraz
+        <h1 className="text-2xl lg:text-4xl font-bold text-black mt-24 lg:mt-0">
+          {isEdit ? "Edytujesz produkt" : "Dodajesz produkt"}
         </h1>
-        <div className="p-4 rounded-lg bg-[#222430] w-full mt-12">
+        <div className="p-4 bg-gray-200 w-full mt-6">
           <div className="flex flex-col">
-            <span className="font-bold mb-3 text-xl text-white">Nazwa</span>
+            <span className="font-bold mb-3 text-xl text-black">Nazwa</span>
             <input
-              className={`text-zinc-700 p-2 rounded-md ${
-                artworkData.title ? "border-2 border-green-500" : "border-2"
+              className={`text-zinc-700 p-2  ${
+                artworkData.title
+                  ? "border-2 border-green-500"
+                  : "border-gray-300"
               }`}
               type="text"
               value={artworkData.title}
@@ -135,12 +260,34 @@ export default function AddProduct() {
             />
           </div>
         </div>
-        <div className="p-4 rounded-lg bg-[#222430] w-full mt-4">
+        <div className="p-4 bg-gray-200 w-full mt-4">
           <div className="flex flex-col">
-            <span className="font-bold mb-3 text-xl text-white">Opis</span>
+            <span className="font-bold text-xl text-black">Kategoria</span>
+            <p className="text-black text-sm">Wybierz kategorię</p>
+            <select
+              className={`mt-1.5 font-bold text-zinc-700 p-2  ${
+                artworkData.category
+                  ? "border-2 border-green-500"
+                  : "border-gray-300"
+              }`}
+              value={artworkData.category}
+              onChange={(e) =>
+                handleArtworkDataChange("category", e.target.value)
+              }
+            >
+              <option value="">Wybierz kategorię</option>
+              <option value="paintings">Obrazy</option>
+              <option value="prints">Druki</option>
+              <option value="stickers">Naklejki</option>
+            </select>
+          </div>
+        </div>
+        <div className="p-4 bg-gray-200 w-full mt-4">
+          <div className="flex flex-col">
+            <span className="font-bold mb-3 text-xl text-black">Opis</span>
             <ReactQuill
               placeholder=""
-              className={`border rounded-md border-primaryStart/70 text-black bg-white w-full`}
+              className={`border-gray-300 text-black bg-white w-full`}
               value={artworkData?.description}
               onChange={(e) => {
                 setArtworkData({
@@ -151,20 +298,25 @@ export default function AddProduct() {
             />
           </div>
         </div>
-        <div className="mt-4 bg-[#222430] p-4 rounded-lg w-full">
+        <div className="mt-4 bg-gray-200 p-4 w-full">
           <div>
-            <p className="font-bold mb-3 text-xl text-white">
+            <p className="font-bold mb-3 text-xl text-black">
               {artworkData.images.length ? "Wybrane zdjęcia" : "Dodaj zdjęcia"}
             </p>
             {artworkData.images.length > 0 && !artworkData.mainImage && (
-              <p className="text-white text-sm">
+              <p className="text-black text-sm">
                 Wybierz zdjęcie główne klikając na obrazek
               </p>
             )}
           </div>
-          <div className="min-w-full flex flex-row space-x-2 mt-2">
+          <div className="min-w-full flex flex-row flex-wrap gap-3 mt-2">
             {artworkData?.images?.map((item: any, i: any) => (
               <div key={i} className="relative h-[150px] w-auto aspect-square">
+                {artworkData.mainImage === item.src && (
+                  <div className="z-50 absolute bottom-0 left-0 font-light text-black bg-green-500 p-1">
+                    Zdjęcie główne
+                  </div>
+                )}
                 <Image
                   onClick={() =>
                     setArtworkData({ ...artworkData, mainImage: item.src })
@@ -175,14 +327,14 @@ export default function AddProduct() {
                   alt=""
                   className={`${
                     isLoading ? "blur-sm" : "blur-none"
-                  } absolute inset-0 object-cover w-full h-full border-2 bg-slate-100 rounded-lg ${
+                  } absolute inset-0 object-cover w-full h-full border-2 bg-slate-100 ${
                     artworkData.mainImage === item.src
                       ? "border-green-500"
                       : "border-gray-300"
                   }`}
                 />
                 <button
-                  className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full"
+                  className="absolute top-0 right-0 bg-red-500 text-black p-1 font-light"
                   onClick={() => {
                     setArtworkData((prevData: any) => ({
                       ...prevData,
@@ -198,9 +350,9 @@ export default function AddProduct() {
             ))}
             <label
               htmlFor="fileUpload"
-              className="h-[150px] aspect-square text-center flex w-max flex-col relative items-center justify-center bg-white rounded-lg"
+              className="h-[150px] aspect-square text-center flex w-max flex-col relative items-center justify-center bg-white"
             >
-              <FaUpload className="text-4xl text-[#222430]" />
+              <FaUpload className="text-4xl text-gray-200" />
               <span className="text-lg"></span>
             </label>
             <input
@@ -220,8 +372,8 @@ export default function AddProduct() {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4 mb-4">
-          <div className="p-4 rounded-lg bg-[#222430] w-full mt-4">
-            <span className="font-bold text-xl text-white mb-3 block">
+          <div className="p-4 bg-gray-200 w-full mt-4">
+            <span className="font-bold text-xl text-black mb-3 block">
               Tagi
             </span>
             <form
@@ -246,12 +398,12 @@ export default function AddProduct() {
                 type="text"
                 name="tagInput"
                 placeholder="Dodaj tag"
-                className="text-zinc-700 p-2 rounded-md"
+                className="text-zinc-700 p-2 border-gray-300"
               />
               <div className="flex flex-wrap gap-2 mt-2"></div>
               {artworkData?.tags?.map((tag: any, i: any) => (
                 <div key={i} className="flex items-center space-x-2">
-                  <span className="text-white">{tag}</span>
+                  <span className="text-black">{tag}</span>
                   <button
                     type="button"
                     className="ml-3 text-red-500"
@@ -271,22 +423,24 @@ export default function AddProduct() {
 
               <button
                 type="submit"
-                className="rounded-md bg-blue-500 text-white py-1.5 px-3 block"
+                className="font-light text-white bg-blue-500 py-1.5 px-3 block"
               >
                 Dodaj tag
               </button>
             </form>
           </div>
 
-          <div className="p-4 rounded-lg bg-[#222430] w-full mt-4">
+          <div className="p-4 bg-gray-200 w-full mt-4">
             <div className="flex flex-col">
-              <span className="font-bold text-xl text-white">Cena</span>
-              <p className="text-white text-sm">
+              <span className="font-bold text-xl text-black">Cena</span>
+              <p className="text-black text-sm">
                 Jeśli nie podasz ceny, pojawi się przycisk kontaktu
               </p>
               <input
-                className={`mt-1.5 font-bold text-zinc-700 p-2 rounded-md ${
-                  artworkData.price ? "border-2 border-green-500" : "border-2"
+                className={`mt-1.5 font-bold text-zinc-700 p-2  ${
+                  artworkData.price
+                    ? "border-2 border-green-500"
+                    : "border-gray-300"
                 }`}
                 min={0}
                 max={99999999}
@@ -298,15 +452,15 @@ export default function AddProduct() {
               />
             </div>
           </div>
-          <div className="p-4 rounded-lg bg-[#222430] w-full mt-4">
+          <div className="p-4 bg-gray-200 w-full mt-4">
             <div className="flex flex-col">
-              <span className="font-bold text-xl text-white">Wymiary</span>
-              <p className="text-white text-sm">(100x40)</p>
+              <span className="font-bold text-xl text-black">Wymiary</span>
+              <p className="text-black text-sm">(100x40)</p>
               <input
-                className={`mt-1.5 font-bold text-zinc-700 p-2 rounded-md ${
+                className={`mt-1.5 font-bold text-zinc-700 p-2  ${
                   artworkData.dimensions
                     ? "border-2 border-green-500"
-                    : "border-2"
+                    : "border-gray-300"
                 }`}
                 type="text"
                 value={artworkData.dimensions}
@@ -322,11 +476,30 @@ export default function AddProduct() {
             <button
               disabled={isLoading}
               onClick={() => {
-                add();
+                if (!isEdit) {
+                  add();
+                } else {
+                  edit();
+                }
               }}
-              className="rounded-lg px-6 bg-green-500 hover:bg-green-400 p-2 duration-200 text-white text-lg disabled:cursor-not-allowed disabled:bg-green-200"
+              className="font-bold px-6 bg-green-500 hover:bg-green-400 p-2 duration-200 text-white text-lg disabled:cursor-not-allowed disabled:bg-green-200"
             >
-              {isLoading ? "ŁADOWANIE" : "Dodaj do sklepu"}
+              {isLoading ? (
+                "ŁADOWANIE"
+              ) : (
+                <>{isEdit ? "Zapisz zmiany" : "Dodaj do sklepu"}</>
+              )}
+            </button>
+          )}
+          {isEdit && (
+            <button
+              disabled={isLoading}
+              onClick={() => {
+                setEditOpen(false);
+              }}
+              className="font-light px-6 bg-gray-500 hover:bg-gray-400 p-2 duration-200 text-white text-lg disabled:cursor-not-allowed disabled:bg-green-200"
+            >
+              Wyjdź
             </button>
           )}
           {isAdded && (
@@ -335,7 +508,7 @@ export default function AddProduct() {
               onClick={() => {
                 window.location.reload();
               }}
-              className="rounded-lg px-6 bg-gray-500 hover:bg-gray-400 p-2 duration-200 text-white text-lg disabled:cursor-not-allowed disabled:bg-green-200"
+              className="px-6 bg-gray-500 hover:bg-gray-400 p-2 duration-200 text-white text-lg disabled:cursor-not-allowed disabled:bg-green-200"
             >
               Dodaj następny
             </button>

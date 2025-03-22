@@ -211,7 +211,7 @@ export default function EditPost({
               >
                 Dodaj
               </button>
-              <div className="text-black !font-coco">
+              <div className="text-black">
                 <SectionContentEditor
                   addSection={addSection}
                   removeSection={removeSection}

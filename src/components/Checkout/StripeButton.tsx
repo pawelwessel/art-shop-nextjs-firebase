@@ -29,6 +29,7 @@ function StripeButton({
       category: item.category,
       slug: item.slug,
       currency: "pln",
+      id: item.id,
     };
   });
   const validateCustomerInfo = (customerInfo: CustomerInfo) => {
@@ -66,7 +67,7 @@ function StripeButton({
     setTimeout(() => {
       setFormErrors();
       setIsFormError(false);
-    }, 3500);
+    }, 5500);
     setIsFormError(hasError);
 
     if (hasError) {
@@ -92,7 +93,7 @@ function StripeButton({
   return (
     <>
       <button
-        className={`bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded h-max flex flex-row items-center justify-center disabled:bg-blue-300 disabled:text-zinc-700  disabled:cursor-not-allowed ${
+        className={`bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 h-max flex flex-row items-center justify-center disabled:bg-blue-300 disabled:text-zinc-700  disabled:cursor-not-allowed ${
           (malwareError || isFormError) && "!bg-red-500 !text-white"
         }`}
         disabled={isLoading || malwareError !== ""}

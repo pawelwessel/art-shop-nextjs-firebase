@@ -163,7 +163,7 @@ export default function NewPostPage() {
                     className="!text-black bg-slate-400 mt-1 p-2 outline-none placeholder:text-gray-500  scrollbarMain resize-none"
                   />
                 </div>
-                <div className="text-black !font-coco">
+                <div className="text-black">
                   <SectionContentEditor
                     addSection={addSection}
                     removeSection={removeSection}
