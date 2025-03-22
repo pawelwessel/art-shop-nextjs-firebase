@@ -9,7 +9,13 @@ import { addDocument } from "@/firebase";
 import { v4 as uuidv4 } from "uuid";
 export default async function Shop() {
   const products: any = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/products`
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/products`,
+    {
+      cache: "no-store",
+      next: {
+        revalidate: 30,
+      },
+    }
   ).then((res) => res.json());
   const visitorData = await fetch("https://api.ipify.org?format=json")
     .then((res) => res.json())

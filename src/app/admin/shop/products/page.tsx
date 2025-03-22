@@ -3,7 +3,13 @@ import Ranking from "./Ranking";
 
 export default async function Page() {
   const products: any = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/products`
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/products`,
+    {
+      cache: "no-store",
+      next: {
+        revalidate: 30,
+      },
+    }
   ).then((res) => res.json());
   return (
     <div className="p-6 lg:p-16">
