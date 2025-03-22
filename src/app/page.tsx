@@ -7,7 +7,7 @@ import Products from "@/components/Home/Products";
 import ClientFormWrapper from "@/components/Home/CtaForm/ClientFormWrapper";
 import { addDocument, getDocuments } from "@/firebase";
 import { v4 as uuidv4 } from "uuid";
-export const revalidate = "force-dynamic";
+export const dynamic = "force-dynamic";
 export default async function Page() {
   const products: any = await getDocuments("products");
   await addDocument("page-views", uuidv4(), { date: Date.now(), page: "shop" });
