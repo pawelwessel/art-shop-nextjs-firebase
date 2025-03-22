@@ -3,7 +3,7 @@ import { getDocuments } from "@/firebase";
 import AdminOrders from "./AdminOrders";
 
 export default async function Page() {
-  const orders = await getDocuments("orders");
+  const orders: any = await getDocuments("orders");
 
   return (
     <div className="relative">
