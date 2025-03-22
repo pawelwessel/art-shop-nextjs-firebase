@@ -44,8 +44,8 @@ export async function POST(request: Request) {
         },
       ],
       mode: "payment",
-      success_url: `checkout/${id}`,
-      cancel_url: `checkout/${id}`,
+      success_url: `https://blackbellartstudio.pl/checkout/${id}`,
+      cancel_url: `https://blackbellartstudio.pl/checkout/${id}`,
       locale: "pl",
       metadata: {
         productName: `Zamówienie: ${paymentName}`,
