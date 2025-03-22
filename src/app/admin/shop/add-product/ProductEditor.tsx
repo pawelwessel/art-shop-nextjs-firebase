@@ -9,6 +9,7 @@ import { v4 as uuid } from "uuid";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
 import { toast } from "react-toastify";
+import { revalidatePath } from "next/cache";
 const ReactQuill = dynamic(() => import("react-quill-new"));
 
 export const TOOLBAR_OPTIONS = [
@@ -102,6 +103,8 @@ export default function ProductEditor({
         pauseOnHover: true,
       });
       setLoading(false);
+      revalidatePath("/");
+      revalidatePath("/admin/shop/products/");
     });
     setIsAdded(true);
   }
@@ -178,6 +181,8 @@ export default function ProductEditor({
         })
       );
       setLoading(false);
+      revalidatePath("/");
+      revalidatePath("/admin/shop/products/");
     });
     setEditOpen(false);
   }
