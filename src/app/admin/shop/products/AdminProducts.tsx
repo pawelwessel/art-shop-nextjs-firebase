@@ -39,7 +39,6 @@ export default function AdminProducts({ data }: { data: any }) {
               </button>
               <button
                 onClick={() => {
-                  console.log(deleteOpen.id);
                   removeDocument("products", deleteOpen.id);
                   setProducts((prev: any) =>
                     prev.filter((item: any) => item.id !== deleteOpen.id)

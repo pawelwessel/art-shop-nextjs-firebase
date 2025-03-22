@@ -42,8 +42,6 @@ async function getDocument(collectionName, id) {
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
     return docSnap.data();
-  } else {
-    console.log("No such document!");
   }
 }
 async function removeDocument(collectionName, uniqueId) {
