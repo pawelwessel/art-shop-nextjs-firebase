@@ -17,14 +17,11 @@ export default async function Shop() {
       },
     }
   ).then((res) => res.json());
-  const visitorData = await fetch("https://api.ipify.org?format=json")
-    .then((res) => res.json())
-    .then((data) => ({
-      page: "shop",
-      date: Date.now(),
-      ip: data.ip,
-    }));
-  await addDocument("page-views", uuidv4(), visitorData);
+
+  await addDocument("page-views", uuidv4(), {
+    page: "shop",
+    date: Date.now(),
+  });
   return (
     <div className="bg-white flex flex-col justify-center w-full">
       <PrepareCart />
