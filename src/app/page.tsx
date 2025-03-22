@@ -5,11 +5,9 @@ import PrepareCart from "@/components/Home/PrepareCart";
 import Hero from "@/components/Home/Hero";
 import Products from "@/components/Home/Products";
 import ClientFormWrapper from "@/components/Home/CtaForm/ClientFormWrapper";
+import { getDocuments } from "@/firebase";
 export default async function Page() {
-  const req = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products`, {
-    cache: "no-store",
-  });
-  const products = await req.json();
+  const products: any = await getDocuments("products");
 
   return (
     <div className="bg-white flex flex-col justify-center w-full">
