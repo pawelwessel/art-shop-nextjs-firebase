@@ -5,16 +5,16 @@ import PrepareCart from "@/components/Home/PrepareCart";
 import Hero from "@/components/Home/Hero";
 import Products from "@/components/Home/Products";
 import ClientFormWrapper from "@/components/Home/CtaForm/ClientFormWrapper";
-import { getDocuments } from "@/firebase";
+import { addDocument } from "@/firebase";
+import { v4 as uuidv4 } from "uuid";
 export default async function Page() {
-  const products: any = await getDocuments("products");
-
+  await addDocument("page-views", uuidv4(), { date: Date.now(), page: "shop" });
   return (
     <div className="bg-white flex flex-col justify-center w-full">
       <PrepareCart />
       <Hero />
       <ClientFormWrapper />
-      <Products products={products} />
+      <Products />
       <Orders />
       <ShopFooter />
     </div>
