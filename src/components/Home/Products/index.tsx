@@ -3,7 +3,6 @@ import Product from "./Product";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import Checkout from "@/components/Checkout";
-import { getDocuments } from "@/firebase";
 const Masonry = dynamic(() => import("react-responsive-masonry"), {
   ssr: false,
 });
@@ -11,11 +10,10 @@ const ResponsiveMasonry = dynamic(
   () => import("react-responsive-masonry").then((mod) => mod.ResponsiveMasonry),
   { ssr: false }
 );
-export default function Products() {
+export default function Products({ products }: { products: any }) {
   const [openedImage, setOpenedImage] = useState<any>(null);
   const [filter, setFilter] = useState("all");
   const [priceFilter, setPriceFilter] = useState("all");
-  const products: any = getDocuments("products");
   const filterProducts = () => {
     let filteredProducts = [...products];
     if (filter !== "all") {
