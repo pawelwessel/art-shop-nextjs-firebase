@@ -43,7 +43,6 @@ export default function Product({
         cart={cart}
         setIsCheckout={setIsCheckout}
       />
-
       <ProjectImages
         service={product}
         currentIndex={currentIndex}

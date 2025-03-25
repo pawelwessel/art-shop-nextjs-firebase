@@ -127,7 +127,7 @@ export default function ShopFooter({
               <Link
                 href="/"
                 className="mt-2 flex flex-row items-center hover:text-green-300 w-max"
-                title="Kup coś w sklepie"
+                title="Sklep z obrazami na płótnie"
               >
                 <FaShoppingCart className="w-5 h-5 mr-2 text-white" />
                 Sklep z obrazami

@@ -3,7 +3,7 @@ import bg from "../../../../public/bg.png";
 import Cta from "../CtaForm";
 export default function Hero() {
   return (
-    <div className="flex flex-col items-center justify-end overflow-hidden">
+    <div className="mt-[76px] flex flex-col items-center justify-end overflow-hidden">
       <div className="relative h-[80vh] mt-12 flex flex-col justify-center items-center text-center w-full">
         <div className="absolute w-[95%] left-1/2 -translate-x-1/2 lg:left-0 lg:-translate-x-0 lg:w-full top-0 rounded-b-full bg-gradient-to-b from-transparent to-black/10 h-[65%] lg:h-[70%]"></div>
         <h1 className="flex flex-col justify-center items-center font-cardo text-4xl sm:text-6xl lg:text-7xl font-bold text-zinc-900 w-max max-w-full leading-tight">

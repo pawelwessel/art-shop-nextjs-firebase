@@ -2,57 +2,52 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { FaShoppingCart } from "react-icons/fa";
+import Cart from "../Products/Cart";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import Checkout from "@/components/Checkout";
 
 export default function Header() {
   const pathname = usePathname();
+  const [isCartOpen, setCartOpen] = useState(false);
+  const cart = useSelector((state: any) => state.shop.cart);
+  const [isCheckout, setIsCheckout] = useState(false);
   return (
-    <header
-      className={`z-50 w-full bg-black shadow-md ${
-        pathname.includes("admin") && "hidden"
-      }`}
-    >
-      <nav className="container mx-auto flex items-center justify-between py-4 px-6 lg:px-10">
-        <Link href="/" className="flex items-center space-x-3 text-white">
-          <Image
-            src="/images/logoWhite.png"
-            width={40}
-            height={40}
-            alt="Blackbell Art logo"
-            className="h-[40px] w-auto mix-blend-difference"
-          />
-          <span className="text-2xl font-bold">Blackbell Art</span>
-        </Link>
-        {/* <div
-          className={`lg:space-x-3 fixed top-0 right-0 w-full h-screen bg-[#303030] flex flex-col items-start p-6 space-y-6 transform transition-transform duration-300 lg:relative lg:w-auto lg:h-auto lg:p-0 lg:space-y-0 lg:flex-row lg:items-center lg:justify-end ${
-            isMenuOpen ? "translate-x-0" : "translate-x-full lg:translate-x-0"
-          }`}
-        >
-          <Link
-            href="/"
-            onClick={() => setMenuOpen(false)}
-            className="mt-24 lg:mt-0 flex items-center space-x-2 text-white text-lg lg:text-base"
-          >
-            <FaHome />
-            <span>Strona Główna</span>
+    <>
+      {isCheckout && (
+        <Checkout setIsCheckout={setIsCheckout} isCheckout={isCheckout} />
+      )}
+      <header
+        className={`fixed z-50 w-full bg-black shadow-md ${
+          pathname.includes("admin") && "hidden"
+        }`}
+      >
+        <nav className="container mx-auto flex items-center justify-between py-4 px-6 lg:px-10">
+          <Link href="/" className="flex items-center space-x-3 text-white">
+            <Image
+              src="/images/logoWhite.png"
+              width={40}
+              height={40}
+              alt="Blackbell Art logo"
+              className="h-[40px] w-auto mix-blend-difference"
+            />
+            <span className="text-2xl font-bold">Blackbell Art</span>
           </Link>
-          <Link
-            href="/blog"
-            onClick={() => setMenuOpen(false)}
-            className="flex items-center space-x-2 text-white text-lg lg:text-base"
+          <button
+            onClick={() => setCartOpen(true)}
+            className="bg-white w-11 h-11 flex items-center justify-center"
           >
-            <FaArtstation />
-            <span>Blog</span>
-          </Link>
-        </div> */}
-        {/* <button
-          className="lg:hidden text-white text-2xl z-[100]"
-          onClick={() => setMenuOpen(!isMenuOpen)}
-          aria-expanded={isMenuOpen}
-          aria-label="Main Menu"
-        >
-          {isMenuOpen ? <FaTimes /> : <FaBars />}
-        </button> */}
-      </nav>
-    </header>
+            <FaShoppingCart className="w-6 h-6" />{" "}
+          </button>
+        </nav>
+      </header>
+      <Cart
+        isCartOpen={isCartOpen}
+        setCartOpen={setCartOpen}
+        cart={cart}
+        setIsCheckout={setIsCheckout}
+      />
+    </>
   );
 }
