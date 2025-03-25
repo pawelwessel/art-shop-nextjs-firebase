@@ -64,7 +64,7 @@ export default function Product({
                 Parę słów o obrazie
               </div>
               <Viewer value={product.description} />
-              <div className="mt-4 flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2">
                 {product?.tags.map((item: any, i: any) => (
                   <div key={item}>#{polishToEnglish(item)}</div>
                 ))}

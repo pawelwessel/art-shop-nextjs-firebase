@@ -26,17 +26,33 @@ export function ImageWithSkeleton({
       }}
       className="aspect-square cursor-pointer"
     >
-      {loading && <LoadingSkeleton />}
-      <Image
-        src={src}
-        width={244}
-        height={244}
-        alt="Obraz namalowany na płótnie"
-        className={`w-full h-full object-cover duration-500 drop-shadow-lg shadow-black ${
-          loading ? "opacity-0" : "opacity-100"
-        }`}
-        onLoad={() => setLoading(false)}
-      />
+      <div className="overflow-hidden">
+        {loading && (
+          <div className="w-full h-[500px] bg-gray-200 animate-pulse">
+            <Image
+              width={800}
+              height={800}
+              src={src}
+              alt="Obraz namalowany na płótnie"
+              onLoad={() => setLoading(false)}
+              className={`${
+                !loading ? "opacity-100" : "opacity-0"
+              } w-full h-full group-hover:scale-110 duration-1000 group-hover:rotate-3`}
+            />
+          </div>
+        )}
+        {!loading && (
+          <Image
+            width={800}
+            height={800}
+            src={src}
+            alt="Obraz namalowany na płótnie"
+            className={`${
+              !loading ? "opacity-100" : "opacity-0"
+            } w-full h-full group-hover:scale-110 duration-1000 group-hover:rotate-3`}
+          />
+        )}
+      </div>
     </div>
   );
 }

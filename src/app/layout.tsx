@@ -13,7 +13,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pl">
+    <html className="overflow-x-hidden" lang="pl">
       <body className={`${cardo.variable} ${ubuntu.variable}`}>
         <Providers>
           <PrepareCart />

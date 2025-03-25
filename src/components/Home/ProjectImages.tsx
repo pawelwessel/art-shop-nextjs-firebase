@@ -20,7 +20,7 @@ export default function ProjectImages({
 }) {
   const [touchStart, setTouchStart] = useState({ x: 0, y: 0 });
   const [touchEnd, setTouchEnd] = useState({ x: 0, y: 0 });
-
+  const [side, setSide] = useState("");
   const onTouchStart = (e: React.TouchEvent) => {
     const touch = e.touches[0];
     setTouchStart({ x: touch.clientX, y: touch.clientY });
@@ -61,7 +61,6 @@ export default function ProjectImages({
 
   const { modals } = useSelector((state: any) => state.modals);
   const dispatch = useDispatch();
-
   return (
     <div
       className={`fixed left-0 top-0 ${
@@ -75,15 +74,6 @@ export default function ProjectImages({
         }}
         className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-75"
       >
-        <button
-          onClick={() => {
-            setImageOpen(false);
-            dispatch(set_modals({ ...modals, isProjectOpen: false }));
-          }}
-          className="absolute top-6 right-6 text-white text-2xl"
-        >
-          ✕
-        </button>
         <div
           onClick={(e: any) => {
             e.stopPropagation();
@@ -99,27 +89,31 @@ export default function ProjectImages({
                 className={`w-full mx-auto bg-black/50 ${
                   i === 0 ? "top-16" : "left-0 top-0 absolute"
                 } ${
-                  currentIndex === i
-                    ? "opacity-100 duration-150"
-                    : "opacity-0 duration-150"
-                } `}
+                  currentIndex === i ? "opacity-100 duration-500" : `opacity-0`
+                }
+                }`}
                 key={i}
               >
                 <div className="relative h-[80vh] flex items-center justify-center">
-                  <Image
-                    src={image.src}
-                    width={1024}
-                    height={1024}
-                    alt={"Obraz usługi"}
-                    className="w-auto max-h-full mx-auto aspect-auto"
-                    draggable="false"
-                  />
+                  <ProjectImage src={image.src} service={service} />
                 </div>
               </div>
             ))}
+
+            <button
+              onClick={() => {
+                setImageOpen(false);
+                dispatch(set_modals({ ...modals, isProjectOpen: false }));
+              }}
+              className="absolute -top-[90px] -right-12 text-white text-3xl z-50 p-12 hover:bg-gray-100/20 duration-300 ease-in rounded-full "
+            >
+              ✕
+            </button>
+
             <div className="font-cardo text-lg w-max mx-auto absolute left-0 -top-8 bg-gradient-to-r from-primaryHoverStart to-primaryHoverEnd text-white">
               {currentIndex + 1} / {service.images.length}
             </div>
+
             <button
               onClick={() => handlePrev()}
               className="z-[101] duration-500 bg-gradient-to-r from-primaryHoverStart to-primaryHoverEnd hover:from-primaryHoverStart/80 hover:to-primaryHoverEnd/80 text-white text-lg p-3 absolute left-0 top-1/2 -translate-y-1/2 bg-black/50 group-hover:opacity-100 opacity-0"
@@ -144,8 +138,8 @@ export default function ProjectImages({
                   >
                     <Image
                       src={image.src}
-                      width={300}
-                      height={300}
+                      width={150}
+                      height={150}
                       alt={"Obraz usługi"}
                       className="h-full w-auto"
                     />
@@ -157,5 +151,29 @@ export default function ProjectImages({
         </div>
       </div>
     </div>
+  );
+}
+
+function ProjectImage({ src, service }: { src: any; service: any }) {
+  const [loading, setLoading] = useState(true);
+  return (
+    <>
+      {loading && (
+        <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
+          <div className="w-16 h-16 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
+        </div>
+      )}
+      <Image
+        src={src}
+        width={1024}
+        height={1024}
+        alt={`Obraz na płótnie ${service?.title}`}
+        onLoad={() => setLoading(false)}
+        className={`w-auto max-h-full mx-auto aspect-auto ${
+          loading ? "opacity-0" : "opacity-100"
+        } duration-300`}
+        draggable="false"
+      />
+    </>
   );
 }

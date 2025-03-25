@@ -14,26 +14,23 @@ export default function MoreProducts({
   setOpenedImage: Function;
 }) {
   const displayedProducts = useMemo(() => {
-    return [...products].sort(() => 0.5 - Math.random()).slice(0, 10);
+    return [...products]
+      .filter((item: any) => item.id !== product.id)
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 10);
   }, [products]);
 
   return (
     <div className="pb-6">
-      <h3 className="mt-8 text-black text-lg sm:text-xl xl:text-2xl text-center lg:text-left font-bold flex flex-row items-center">
+      <h3 className="mb-4 mt-8 text-black text-lg sm:text-xl xl:text-2xl text-center lg:text-left font-bold flex flex-row items-center">
         Zobacz więcej
       </h3>
       <ResponsiveMasonry
-        className="mt-4"
         columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3, 1360: 4 }}
       >
         <Masonry>
           {displayedProducts?.map((item: any, i: any) => (
-            <div
-              className={`border border-gray-400 ${
-                item.title === product.title && "hidden"
-              }`}
-              key={item.title}
-            >
+            <div key={item.title}>
               <button
                 key={i}
                 onClick={() => {
@@ -45,7 +42,7 @@ export default function MoreProducts({
                     product.id
                   );
                 }}
-                className="flex flex-col relative overflow-y-hidden group drop-shadow-sm shadow-black"
+                className="flex flex-col relative overflow-hidden group"
               >
                 <div className="absolute z-[5] inset-0 bg-gradient-to-t from-black/10 to-black/50 group-hover:from-black/50 group-hover:to-black/50" />
                 <div className="absolute z-[6] inset-0 flex items-center justify-center">
@@ -60,7 +57,7 @@ export default function MoreProducts({
                         Zapytaj o cenę
                       </p>
                     )}
-                    <h2 className="font-cardo text-white font-bold line-clamp-2">
+                    <h2 className="font-cardo text-white font-bold line-clamp-2 px-3">
                       {item.title}
                     </h2>
                   </div>
