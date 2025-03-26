@@ -1,7 +1,10 @@
 "use client";
 import { addDocument } from "@/firebase";
+import { setModalVisible } from "@/redux/slices/actionSlice";
 import React, { useState } from "react";
 import { FaArrowRight, FaCheckCircle } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 export default function ClientFormLogic() {
   const [formData, setFormData] = useState<any>({
@@ -13,12 +16,11 @@ export default function ClientFormLogic() {
     phone: "",
   });
   const [isSending, setIsSending] = useState<any>(undefined);
-
+  const dispatch = useDispatch();
   const handleSubmit = (e: any) => {
     setIsSending(true);
     e.preventDefault();
   };
-
   return (
     <>
       <div className="z-0 relative">
@@ -236,9 +238,19 @@ export default function ClientFormLogic() {
                     addDocument("leads", id, {
                       ...formData,
                       id,
-                      type: "order",
+                      createdAt: Date.now(),
                     }).then(() => {
                       setIsSending("success");
+                      toast.success("Pomyślnie wysłano zapytanie!", {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                      });
+                      setTimeout(() => {
+                        dispatch(setModalVisible(undefined));
+                      }, 5000);
                     });
                   }}
                   className="font-cardo flex flex-row items-center justify-center py-2 w-full text-base sm:w-max bg-black hover:bg-gray-800 duration-200 text-white font-bold mt-2 px-4"

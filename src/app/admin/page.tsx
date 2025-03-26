@@ -8,6 +8,7 @@ import "moment/locale/pl";
 export const metadata: Metadata = {
   title: "Panel administracyjny",
 };
+export const dynamic = "force-dynamic";
 export default async function Admin() {
   const pageViews = await getDocuments("page-views");
   const orders = await getDocuments("orders");
