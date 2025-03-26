@@ -18,7 +18,9 @@ export default function ClearCache({
     });
     cart.forEach((product: any) => {
       // Assuming you have a function to update the product by id
-      updateDocument(["sold"], [true], "products", product.id);
+      if (product.category === "paintings") {
+        updateDocument(["sold"], [true], "products", product.id);
+      }
     });
     window.localStorage.clear();
   }, []);

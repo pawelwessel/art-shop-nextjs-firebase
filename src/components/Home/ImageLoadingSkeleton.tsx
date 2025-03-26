@@ -28,7 +28,7 @@ export function ImageWithSkeleton({
     >
       <div className="overflow-hidden">
         {loading && (
-          <div className="w-full h-[500px] bg-gray-200 animate-pulse">
+          <div className="w-full h-[250px] sm:h-[300px] lg:h-[350px] bg-gray-200 animate-pulse">
             <Image
               width={800}
               height={800}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 import ClearCache from "./ClearCache";
-
+export const dynamic = "force-dynamic";
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const orders = await fetch(
