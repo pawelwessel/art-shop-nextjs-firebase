@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FaLongArrowAltLeft, FaPhone, FaShoppingCart } from "react-icons/fa";
 
 export default function ProductNavigation({
@@ -23,13 +24,13 @@ export default function ProductNavigation({
         <FaShoppingCart className="text-lg" />
         Koszyk
       </button>
-      <button
-        onClick={() => setOpenedImage(null)}
+      <Link
+        href="tel:+48570974740"
         className="flex flex-col items-center justify-center text-xs"
       >
         <FaPhone className="text-lg" />
         Kontakt
-      </button>
+      </Link>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import Orders from "../../components/Home/Orders";
 import ShopFooter from "../../components/Home/ShopFooter";
 
@@ -15,30 +15,16 @@ export default async function RootLayout({
     </div>
   );
 }
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  minimumScale: 1,
+  maximumScale: 1,
+  themeColor: "#000000",
+};
 export const metadata: Metadata = {
-  viewport: "width=device-width, initial-scale=1",
-  themeColor: "white",
-  publisher: "BlackBell Tattoo & Art",
+  publisher: "BlackBell Art Studio",
   manifest: "/manifest.json",
-  keywords: [
-    "tattoo",
-    "tattoo artist",
-    "tattoo studio",
-    "tattoo shop",
-    "tattoo shop near me",
-    "tattoo shop in Grudziądz",
-    "tattoo shop in Poland",
-    "art shop",
-    "art shop near me",
-    "art shop in Grudziądz",
-    "art shop in Poland",
-    "art",
-    "art near me",
-    "art in Grudziądz",
-    "art in Poland",
-    "best tattoo artist",
-    "best tattoo studio",
-  ],
   verification: {
     google: "google85185d3abec28326.html",
   },
@@ -54,17 +40,17 @@ export const metadata: Metadata = {
       type: "image/x-icon",
     },
   ],
-  title:
-    "BlackbellArt.com - Regulamin strony internetowej i sklepu internetowego Black Bell Tattoo & Art",
+  title: "Unikalne obrazy na płótnie na zamówienie | Sklep z obrazami | Sztuka",
   description:
-    "Regulamin strony internetowej i sklepu internetowego Black Bell Tattoo & Art",
+    "Obrazy na zamówienie, unikalne dzieła sztuki – ręcznie malowane obrazy na płótnie. Sprawdź naszą ofertę!",
   openGraph: {
     type: "website",
-    url: "https://blackbellart.com",
+    url: "https://blackbellartstudio.pl",
+
     title:
-      "Studio Tatuażu Grudziądz - Unikalne wzory | Personalizowanie Projektów",
+      "Unikalne obrazy na płótnie na zamówienie | Sklep z obrazami | Sztuka",
     description:
-      "Salon Tatuażu w Grudziądzu. Sprawdź wzory i zarezerwuj termin. Stworzę tatuaż według Twoich indywidualnych potrzeb.",
+      "Obrazy na zamówienie, unikalne dzieła sztuki – ręcznie malowane obrazy na płótnie. Sprawdź naszą ofertę!",
     siteName: "Black Bell Tattoo & Art",
   },
 };
