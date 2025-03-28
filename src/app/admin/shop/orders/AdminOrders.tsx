@@ -181,6 +181,12 @@ const LeadCard = ({ lead, setLeads }: { lead: any; setLeads: Function }) => {
         </div>
       )}
       <div className="flex flex-col gap-4 text-sm font-ubuntu font-light">
+        {lead.createdAt && (
+          <div>
+            <span className="font-bold">Dodano:</span>{" "}
+            {moment(lead.createdAt).fromNow()}
+          </div>
+        )}
         <div>
           <span className="font-bold">Imię:</span> {lead.name}
         </div>

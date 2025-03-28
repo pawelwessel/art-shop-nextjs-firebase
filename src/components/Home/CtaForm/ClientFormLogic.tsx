@@ -14,6 +14,7 @@ export default function ClientFormLogic() {
     color: undefined,
     base: undefined,
     phone: "",
+    name: "",
   });
   const [isSending, setIsSending] = useState<any>(undefined);
   const dispatch = useDispatch();
@@ -234,24 +235,37 @@ export default function ClientFormLogic() {
                 <button
                   disabled={isSending === "success"}
                   onClick={() => {
-                    const id = uuidv4();
-                    addDocument("leads", id, {
-                      ...formData,
-                      id,
-                      createdAt: Date.now(),
-                    }).then(() => {
-                      setIsSending("success");
-                      toast.success("Pomyślnie wysłano zapytanie!", {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
+                    if (formData.phone.length > 8 && formData.name.length > 2) {
+                      const id = uuidv4();
+                      addDocument("leads", id, {
+                        ...formData,
+                        id,
+                        createdAt: Date.now(),
+                      }).then(() => {
+                        setIsSending("success");
+                        toast.success("Pomyślnie wysłano zapytanie!", {
+                          position: "top-right",
+                          autoClose: 5000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                        });
+                        setTimeout(() => {
+                          dispatch(setModalVisible(undefined));
+                        }, 5000);
                       });
-                      setTimeout(() => {
-                        dispatch(setModalVisible(undefined));
-                      }, 5000);
-                    });
+                    } else {
+                      toast.error(
+                        "Wypełnij poprawnie wszystkie pola formularza!",
+                        {
+                          position: "top-right",
+                          autoClose: 5000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                        }
+                      );
+                    }
                   }}
                   className="font-cardo flex flex-row items-center justify-center py-2 w-full text-base sm:w-max bg-black hover:bg-gray-800 duration-200 text-white font-bold mt-2 px-4"
                 >
