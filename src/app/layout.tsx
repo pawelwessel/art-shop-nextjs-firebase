@@ -6,6 +6,7 @@ import Header from "../components/Home/Hero/Header";
 import { Cardo } from "next/font/google";
 import { Ubuntu } from "next/font/google";
 import PrepareCart from "../components/Home/PrepareCart";
+import Toast from "@/components/Toast";
 
 export default async function RootLayout({
   children,
@@ -15,6 +16,7 @@ export default async function RootLayout({
   return (
     <html className="overflow-x-hidden" lang="pl">
       <body className={`${cardo.variable} ${ubuntu.variable}`}>
+        <Toast />
         <Providers>
           <PrepareCart />
           <Header />

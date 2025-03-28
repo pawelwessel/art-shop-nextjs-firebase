@@ -6,7 +6,6 @@ import Nav from "./Nav";
 import Loading from "./loading";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { useState } from "react";
-import Toast from "@/components/Toast";
 export default function AdminLayout({
   children,
 }: {
@@ -19,7 +18,6 @@ export default function AdminLayout({
   } else
     return (
       <div className="w-full relative z-[9999] bg-white">
-        <Toast />
         {user ? (
           <>
             <Nav isNavOpen={isNavOpen} setNavOpen={setNavOpen} />
