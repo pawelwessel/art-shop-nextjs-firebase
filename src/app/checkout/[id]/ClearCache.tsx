@@ -1,5 +1,6 @@
 "use client";
 import { addDocument, updateDocument } from "@/firebase";
+import Script from "next/script";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 export default function ClearCache({
@@ -24,5 +25,20 @@ export default function ClearCache({
     });
     window.localStorage.clear();
   }, []);
-  return <div></div>;
+  return (
+    <div>
+      <Script
+        id="conversion"
+        src="https://www.googletagmanager.com/gtag/js?id=AW-10818390066"
+        strategy="afterInteractive"
+      >
+        {`gtag('event', 'conversion', {
+      'send_to': 'AW-10818390066/GxEvCIemvLEaELKQzqYo',
+      'value': 1.0,
+      'currency': 'PLN',
+      'transaction_id': '${order.id}'
+      });`}
+      </Script>
+    </div>
+  );
 }
