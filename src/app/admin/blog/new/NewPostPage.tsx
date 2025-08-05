@@ -14,6 +14,7 @@ import SectionsList from "./PostSections/SectionsList";
 import FaqHandler from "./FaqHandler";
 import { addDocument } from "@/firebase";
 import { toast } from "react-toastify";
+import Image from "next/image";
 var randomId = require("random-id");
 
 export default function NewPostPage() {
@@ -167,12 +168,14 @@ export default function NewPostPage() {
           </div>
 
           {previewMode ? (
-            <div className="bg-white text-black p-8 rounded-lg max-w-4xl mx-auto mx-5">
+            <div className="bg-white text-black p-8 rounded-lg max-w-4xl mx-auto">
               <h1 className="text-3xl font-bold mb-4">
                 {input.title || "Tytuł postu"}
               </h1>
               {input.mainImage && (
-                <img
+                <Image
+                  width={1000}
+                  height={1000}
                   src={input.mainImage}
                   alt={input.title}
                   className="w-full h-64 object-cover rounded-lg mb-6"
@@ -187,7 +190,7 @@ export default function NewPostPage() {
                 {input.sections && input.sections.length > 0 && (
                   <div className="mb-6">
                     <h2 className="text-xl font-semibold mb-2">Sekcje</h2>
-                    {input.sections.map((section, index) => (
+                    {input.sections.map((section: any, index: number) => (
                       <div key={index} className="mb-4">
                         <h3 className="text-lg font-medium mb-2">
                           {section.title}
@@ -203,7 +206,7 @@ export default function NewPostPage() {
                 {input.faq && input.faq.length > 0 && (
                   <div className="mb-6">
                     <h2 className="text-xl font-semibold mb-2">FAQ</h2>
-                    {input.faq.map((item, index) => (
+                    {input.faq.map((item: any, index: number) => (
                       <div key={index} className="mb-4">
                         <h4 className="font-medium mb-1">{item.question}</h4>
                         <p className="text-gray-600">{item.answer}</p>
