@@ -6,17 +6,16 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
 interface BlogPostPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
+  const { slug } = await params;
   const postsData: any = await getDocuments("blog");
   const posts: Post[] = postsData || [];
-  const post = posts.find(
-    (p: Post) => p.url === params.slug || p.postId === params.slug
-  );
+  const post = posts.find((p: Post) => p.url === slug || p.postId === slug);
 
   if (!post) {
     return {
@@ -37,11 +36,10 @@ export async function generateMetadata({
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
   const postsData: any = await getDocuments("blog");
   const posts: Post[] = postsData || [];
-  const post = posts.find(
-    (p: Post) => p.url === params.slug || p.postId === params.slug
-  );
+  const post = posts.find((p: Post) => p.url === slug || p.postId === slug);
 
   if (!post) {
     notFound();

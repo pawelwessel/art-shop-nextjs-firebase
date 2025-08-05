@@ -4,9 +4,10 @@ import EditPostForm from "./EditPostForm";
 export default async function EditPostPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const post = await getDocument("blog", params.id);
+  const { id } = await params;
+  const post = await getDocument("blog", id);
 
   if (!post) {
     return (
