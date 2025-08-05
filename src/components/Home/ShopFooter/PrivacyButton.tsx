@@ -12,12 +12,10 @@ export default function PrivacyButton({
 
   return (
     <div>
-      {isPrivacyOpen && <PrivacyPolicy setOpen={setPrivacyOpen} />}{" "}
+      {isPrivacyOpen && <PrivacyPolicy setOpen={setPrivacyOpen} />}
       <button
         onClick={() => setPrivacyOpen(!isPrivacyOpen)}
-        className={`mt-2 hover:text-green-300  ${
-          isProductSlug ? "xl:text-left" : "xl:text-right"
-        }`}
+        className="text-sm hover:text-white transition-colors block"
       >
         Polityka prywatności
       </button>

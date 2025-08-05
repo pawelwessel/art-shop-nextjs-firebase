@@ -7,6 +7,7 @@ import { Cardo } from "next/font/google";
 import { Ubuntu } from "next/font/google";
 import PrepareCart from "../components/Home/PrepareCart";
 import Toast from "@/components/Toast";
+import ShopFooter from "@/components/Home/ShopFooter";
 
 const cardo = Cardo({
   weight: ["400", "700"],
@@ -36,6 +37,7 @@ export default async function RootLayout({
           <PrepareCart />
           <Header />
           {children}
+          <ShopFooter />
         </Providers>
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-SYTL7MG8Q4" />
         <Script id="google-analytics">

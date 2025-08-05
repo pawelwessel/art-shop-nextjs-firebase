@@ -18,137 +18,146 @@ export default function ShopFooter({
   isProductSlug?: boolean;
 }) {
   return (
-    <footer
-      className={`bg-[#303030] w-full py-24 px-5 ${
-        isProductSlug
-          ? "px-6 md:px-[8vw] lg:px-3 lg:pl-12 xl:px-12"
-          : "lg:px-[8vw] xl:px-[12vw]"
-      }`}
-    >
+    <footer className="bg-gray-900 text-gray-300">
+      {/* Main Footer Content */}
       <div
-        className={`grid grid-cols-1 ${
+        className={`py-16 px-5 ${
           isProductSlug
-            ? "grid-cols-1 md:grid-cols-2"
-            : "sm:grid-cols-2 lg:grid-cols-3"
+            ? "px-6 md:px-[8vw] lg:px-3 lg:pl-12 xl:px-12"
+            : "lg:px-[8vw] xl:px-[12vw]"
         }`}
       >
-        <section
-          className={`xl:block flex flex-col ${
-            isProductSlug ? "" : "items-start justify-start"
-          }`}
+        <div
+          className={`grid grid-cols-1 ${
+            isProductSlug
+              ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
+              : "sm:grid-cols-2 lg:grid-cols-4"
+          } gap-8`}
         >
-          <h2 className="text-2xl font-bold text-green-300 w-full">Kontakt</h2>
-          <Link
-            className="text-left text-white flex flex-row items-center text-lg lg:text-base  xl:text-lg mt-1 w-max"
-            href="tel:570974740"
-            title="Zadzwoń"
-          >
-            <FaPhone className="mr-3 text-green-300" />
-            +48 570 974 740
-          </Link>
-          <Link
-            className="text-left text-white flex flex-row items-center text-lg lg:text-base  xl:text-lg mt-1 w-max"
-            href="mailto:eliza.czer09@gmail.com"
-            title="Wyślij email"
-          >
-            <FaEnvelope className="mr-3 text-green-300" />{" "}
-            eliza.czer09@gmail.com
-          </Link>
-        </section>
-        <section
-          className={`xl:block flex flex-col ${
-            isProductSlug ? "mt-12 md:mt-0" : "items-start justify-start"
-          }`}
-        >
-          <h2 className="text-2xl font-bold text-green-300 mt-4 sm:mt-0">
-            Social Media
-          </h2>
-          <div className="text-white">
-            <Link
-              target="_blank"
-              href="https://www.instagram.com/blackbell.ce/"
-              className="flex flex-row items-center hover:text-green-300 mt-3 w-max"
-              title="Obserwuj na instagramie"
-            >
-              <FaInstagram className="w-8 h-8 mr-3 text-white" />
-              @blackbell.ce
-            </Link>
-            <Link
-              target="_blank"
-              href="https://www.facebook.com/blackbell.c.e"
-              className="flex flex-row items-center hover:text-green-300 mt-3 w-max"
-              title="Obserwuj na facebooku"
-            >
-              <FaFacebook className="w-8 h-8 mr-3 text-white" />
-              @blackbell.c.e
-            </Link>
-
-            <Link
-              target="_blank"
-              href="https://www.instagram.com/blackbellarttattoo/"
-              className="flex flex-row items-center hover:text-green-300 mt-3 w-max"
-              title="Obserwuj na instagramie"
-            >
-              <FaInstagram className="w-8 h-8 mr-3 text-white" />
-              @blackbellarttattoo
-            </Link>
-          </div>
-        </section>
-        <section
-          className={`xl:block flex flex-col   ${
-            isProductSlug ? "mt-12 md:mt-0" : "items-start justify-start"
-          }`}
-        >
-          <h2 className="text-2xl font-bold text-green-300 mt-4 lg:mt-0">
-            Linki
-          </h2>
-          <div className={`grid grid-cols-1 text-white`}>
-            <div
-              className={`xl:pr-2 py-3 xl:block flex flex-col ${
-                isProductSlug ? "" : "items-start justify-center text-center"
-              }`}
-            >
+          {/* Contact Section */}
+          <section className="space-y-4">
+            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+              Kontakt
+            </h3>
+            <div className="space-y-3">
               <Link
-                href="/sitemap-0.xml"
-                className="flex flex-row items-center hover:text-green-300 w-max"
-                title="Zobacz sitemap.xml"
+                className="flex items-center text-sm hover:text-white transition-colors"
+                href="tel:570974740"
+                title="Zadzwoń"
               >
-                <FaMap className="w-5 h-5 mr-2 text-white" />
-                Mapa Strony
+                <FaPhone className="w-4 h-4 mr-3 text-gray-400" />
+                +48 570 974 740
+              </Link>
+              <Link
+                className="flex items-center text-sm hover:text-white transition-colors"
+                href="mailto:eliza.czer09@gmail.com"
+                title="Wyślij email"
+              >
+                <FaEnvelope className="w-4 h-4 mr-3 text-gray-400" />
+                eliza.czer09@gmail.com
+              </Link>
+            </div>
+          </section>
+
+          {/* Social Media Section */}
+          <section className="space-y-4">
+            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+              Social Media
+            </h3>
+            <div className="space-y-3">
+              <Link
+                target="_blank"
+                href="https://www.instagram.com/blackbell.ce/"
+                className="flex items-center text-sm hover:text-white transition-colors"
+                title="Obserwuj na instagramie"
+              >
+                <FaInstagram className="w-4 h-4 mr-3 text-gray-400" />
+                @blackbell.ce
+              </Link>
+              <Link
+                target="_blank"
+                href="https://www.facebook.com/blackbell.c.e"
+                className="flex items-center text-sm hover:text-white transition-colors"
+                title="Obserwuj na facebooku"
+              >
+                <FaFacebook className="w-4 h-4 mr-3 text-gray-400" />
+                @blackbell.c.e
+              </Link>
+              <Link
+                target="_blank"
+                href="https://www.instagram.com/blackbellarttattoo/"
+                className="flex items-center text-sm hover:text-white transition-colors"
+                title="Obserwuj na instagramie"
+              >
+                <FaInstagram className="w-4 h-4 mr-3 text-gray-400" />
+                @blackbellarttattoo
+              </Link>
+            </div>
+          </section>
+
+          {/* Quick Links Section */}
+          <section className="space-y-4">
+            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+              Szybkie linki
+            </h3>
+            <div className="space-y-3">
+              <Link
+                href="/"
+                className="flex items-center text-sm hover:text-white transition-colors"
+                title="Sklep z obrazami na płótnie"
+              >
+                <FaShoppingCart className="w-4 h-4 mr-3 text-gray-400" />
+                Sklep
               </Link>
               <Link
                 href="/blog"
-                className="mt-2 flex flex-row items-center hover:text-green-300 w-max"
+                className="flex items-center text-sm hover:text-white transition-colors"
                 title="Sprawdź bloga"
               >
-                <FaArtstation className="w-5 h-5 mr-2 text-white" />
+                <FaArtstation className="w-4 h-4 mr-3 text-gray-400" />
                 Blog
               </Link>
               <Link
-                href="/"
-                className="mt-2 flex flex-row items-center hover:text-green-300 w-max"
-                title="Sklep z obrazami na płótnie"
+                href="/sitemap-0.xml"
+                className="flex items-center text-sm hover:text-white transition-colors"
+                title="Zobacz sitemap.xml"
               >
-                <FaShoppingCart className="w-5 h-5 mr-2 text-white" />
-                Sklep z obrazami
+                <FaMap className="w-4 h-4 mr-3 text-gray-400" />
+                Mapa strony
               </Link>
             </div>
-            <div
-              className={`xl:pl-2 mt-3 xl:mt-0 w-full flex flex-col py-3 ${
-                isProductSlug ? "items-start" : "justify-start items-start"
-              }`}
-            >
+          </section>
+
+          {/* Legal Section */}
+          <section className="space-y-4">
+            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+              Informacje prawne
+            </h3>
+            <div className="space-y-3">
               <Link
                 href="/regulations"
-                className="hover:text-green-300"
+                className="text-sm hover:text-white transition-colors block"
                 title="Regulamin sklepu i polityka prywatności"
               >
                 Regulamin sklepu
               </Link>
               <PrivacyButton isProductSlug={isProductSlug} />
             </div>
+          </section>
+        </div>
+      </div>
+
+      {/* Footer Bottom */}
+      <div className="border-t border-gray-800 py-6 px-5 lg:px-[8vw] xl:px-[12vw]">
+        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <div className="text-xs text-gray-400">
+            © {new Date().getFullYear()} Black Bell Art Design. Wszystkie prawa
+            zastrzeżone.
           </div>
-        </section>
+          <div className="text-xs text-gray-400">
+            Projekt i realizacja: Black Bell Art Design
+          </div>
+        </div>
       </div>
     </footer>
   );

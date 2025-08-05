@@ -1,6 +1,5 @@
 import React from "react";
 import Orders from "@/components/Home/Orders";
-import ShopFooter from "@/components/Home/ShopFooter";
 import PrepareCart from "@/components/Home/PrepareCart";
 import Hero from "@/components/Home/Hero";
 import Products from "@/components/Home/Products";
@@ -18,7 +17,6 @@ export default async function Page() {
       <ClientFormWrapper />
       <Products products={products} />
       <Orders />
-      <ShopFooter />
     </div>
   );
 }

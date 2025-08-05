@@ -34,12 +34,26 @@ export default function Header() {
             />
             <span className="text-2xl font-bold">Blackbell Art</span>
           </Link>
-          <button
-            onClick={() => setCartOpen(true)}
-            className="bg-white w-11 h-11 flex items-center justify-center"
-          >
-            <FaShoppingCart className="w-6 h-6" />{" "}
-          </button>
+
+          <div className="flex items-center space-x-6">
+            <Link
+              href="/blog"
+              className="text-white hover:text-gray-300 transition-colors font-medium"
+            >
+              Blog
+            </Link>
+            <button
+              onClick={() => setCartOpen(true)}
+              className="bg-white w-11 h-11 flex items-center justify-center relative"
+            >
+              <FaShoppingCart className="w-6 h-6" />
+              {cart && cart.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {cart.length}
+                </span>
+              )}
+            </button>
+          </div>
         </nav>
       </header>
       <Cart
