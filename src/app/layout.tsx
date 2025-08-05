@@ -8,6 +8,21 @@ import { Ubuntu } from "next/font/google";
 import PrepareCart from "../components/Home/PrepareCart";
 import Toast from "@/components/Toast";
 
+const cardo = Cardo({
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-cardo",
+});
+const ubuntu = Ubuntu({
+  weight: ["300", "400", "700"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-ubuntu",
+});
+
 export default async function RootLayout({
   children,
 }: {
@@ -36,20 +51,6 @@ export default async function RootLayout({
   );
 }
 
-const cardo = Cardo({
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-cardo",
-});
-const ubuntu = Ubuntu({
-  weight: ["300", "400", "700"],
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-ubuntu",
-});
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,

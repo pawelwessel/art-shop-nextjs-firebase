@@ -1,6 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
+
+const getLocalStorage = (key) => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem(key);
+  }
+  return null;
+};
+
+const setLocalStorage = (key, value) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem(key, value);
+  }
+};
+
 const initialState = {
-  cart: null,
+  cart: [],
 };
 
 export const shopSlice = createSlice({
@@ -8,11 +22,14 @@ export const shopSlice = createSlice({
   initialState,
   reducers: {
     setCart: (state, action) => {
+      if (!state.cart) {
+        state.cart = [];
+      }
       state.cart.push(action.payload);
-      localStorage.setItem("cart", JSON.stringify(state.cart));
+      setLocalStorage("cart", JSON.stringify(state.cart));
     },
     prepareCart: (state) => {
-      const cart = localStorage.getItem("cart");
+      const cart = getLocalStorage("cart");
       if (cart) {
         state.cart = JSON.parse(cart);
       } else {
@@ -20,12 +37,16 @@ export const shopSlice = createSlice({
       }
     },
     removeFromCart: (state, action) => {
+      if (!state.cart) {
+        state.cart = [];
+        return;
+      }
       const index = state.cart.findIndex(
         (item) => item.title === action.payload.title
       );
       if (index !== -1) {
         state.cart.splice(index, 1);
-        localStorage.setItem("cart", JSON.stringify(state.cart));
+        setLocalStorage("cart", JSON.stringify(state.cart));
       }
     },
   },

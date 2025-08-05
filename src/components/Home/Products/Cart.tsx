@@ -1,3 +1,4 @@
+"use client";
 import { ArtworkData } from "@/types";
 import Image from "next/image";
 import { FaShoppingCart } from "react-icons/fa";

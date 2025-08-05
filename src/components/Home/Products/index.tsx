@@ -1,6 +1,6 @@
 "use client";
 import Product from "./Product";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import dynamic from "next/dynamic";
 import Checkout from "@/components/Checkout";
 const Masonry = dynamic(() => import("react-responsive-masonry"), {
@@ -18,11 +18,15 @@ export default function Products({ products }: { products: any }) {
   const [showSuccess, setShowSuccess] = useState(false);
 
   // Get unique tags from all products
-  const uniqueTags = Array.from(
-    new Set(products.flatMap((product: any) => product.tags || []))
+  const uniqueTags = useMemo(
+    () =>
+      Array.from(
+        new Set(products.flatMap((product: any) => product.tags || []))
+      ),
+    [products]
   );
 
-  const filterProducts = () => {
+  const filteredProducts = useMemo(() => {
     let filteredProducts = [...products];
     if (filter !== "all") {
       filteredProducts = filteredProducts.filter(
@@ -44,16 +48,20 @@ export default function Products({ products }: { products: any }) {
       );
     }
 
-    // Show success message
-    setShowSuccess(true);
-    setTimeout(() => {
-      setShowSuccess(false);
-    }, 3000);
-
     return filteredProducts;
-  };
+  }, [products, filter, tagFilter, priceFilter]);
 
-  const filteredProducts = filterProducts();
+  // Show success message when filters change
+  useEffect(() => {
+    if (filter !== "all" || tagFilter !== "all" || priceFilter !== "all") {
+      setShowSuccess(true);
+      const timer = setTimeout(() => {
+        setShowSuccess(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [filter, tagFilter, priceFilter]);
+
   const [isCheckout, setIsCheckout] = useState(false);
 
   return (

@@ -4,6 +4,13 @@ import { FaArrowRight, FaShoppingCart } from "react-icons/fa";
 import { FaBell, FaCheck } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+
+const setLocalStorage = (key, value) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem(key, value);
+  }
+};
+
 export default function ProductInteractions({
   product,
   cart,
@@ -29,7 +36,7 @@ export default function ProductInteractions({
 }) {
   const dispatch = useDispatch();
   const handleAddToCart = () => {
-    localStorage.setItem("cart", JSON.stringify(product));
+    setLocalStorage("cart", JSON.stringify(product));
     dispatch(setCart(product));
     setCartOpen(true);
   };
