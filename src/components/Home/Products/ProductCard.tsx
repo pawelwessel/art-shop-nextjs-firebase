@@ -13,7 +13,7 @@ export default function ProductCard({
   const [loading, setLoading] = useState(true);
   return (
     <div
-      className="group relative cursor-pointer"
+      className=" group relative cursor-pointer p-3"
       onClick={() => {
         setOpenedImage(product.id);
         updateDocument(
@@ -24,9 +24,8 @@ export default function ProductCard({
         );
       }}
     >
-      <div className="absolute z-[5] inset-0 bg-gradient-to-t from-black/10 to-black/50 group-hover:from-black/50 group-hover:to-black/50" />
       {!loading && (
-        <div className="absolute z-[6] inset-0 flex items-center justify-center">
+        <div className=" absolute z-[6] inset-0 flex items-center justify-center">
           <div className="text-center">
             {product.price > 0 && (
               <p className="group-hover:scale-110 scale-125 duration-700 font-cardo text-white font-bold text-sm mb-1">
@@ -48,7 +47,7 @@ export default function ProductCard({
         </div>
       )}
 
-      <div className="overflow-hidden">
+      <div className="">
         {loading && (
           <div className="w-full h-[500px] bg-gray-200 animate-pulse">
             <Image
@@ -59,7 +58,7 @@ export default function ProductCard({
               onLoad={() => setLoading(false)}
               className={`${
                 !loading ? "opacity-100" : "opacity-0"
-              } w-full h-full group-hover:scale-110 duration-1000 group-hover:rotate-3`}
+              }  shadow-sm shadow-black rounded-xl w-full h-full group-hover:scale-110 duration-1000 group-hover:rotate-3`}
             />
           </div>
         )}
@@ -76,7 +75,7 @@ export default function ProductCard({
             }}
             className={`${
               !loading ? "opacity-100" : "opacity-0"
-            } w-full h-full group-hover:scale-110 duration-1000 group-hover:rotate-3`}
+            } shadow-lg shadow-zinc-500 rounded-xl  w-full h-full group-hover:scale-110 duration-1000 group-hover:rotate-3`}
           />
         )}
       </div>

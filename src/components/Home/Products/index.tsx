@@ -1,6 +1,6 @@
 "use client";
 import Product from "./Product";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Checkout from "@/components/Checkout";
 const Masonry = dynamic(() => import("react-responsive-masonry"), {
@@ -14,11 +14,24 @@ export default function Products({ products }: { products: any }) {
   const [openedImage, setOpenedImage] = useState<any>(null);
   const [filter, setFilter] = useState("all");
   const [priceFilter, setPriceFilter] = useState("all");
+  const [tagFilter, setTagFilter] = useState("all");
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  // Get unique tags from all products
+  const uniqueTags = Array.from(
+    new Set(products.flatMap((product: any) => product.tags || []))
+  );
+
   const filterProducts = () => {
     let filteredProducts = [...products];
     if (filter !== "all") {
       filteredProducts = filteredProducts.filter(
         (product: any) => product.category === filter
+      );
+    }
+    if (tagFilter !== "all") {
+      filteredProducts = filteredProducts.filter(
+        (product: any) => product.tags && product.tags.includes(tagFilter)
       );
     }
     if (priceFilter === "low-to-high") {
@@ -30,6 +43,12 @@ export default function Products({ products }: { products: any }) {
         (a: any, b: any) => b.price - a.price
       );
     }
+
+    // Show success message
+    setShowSuccess(true);
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 3000);
 
     return filteredProducts;
   };
@@ -48,7 +67,12 @@ export default function Products({ products }: { products: any }) {
       <p className="mt-2 text-gray-700">
         Zamów oryginalne obrazy na płótnie, naklejki lub druki
       </p>
-      <div className="grid grid-cols-2 gap-4">
+      {showSuccess && (
+        <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-50 animate-fade-in-out">
+          Filtry zostały zastosowane pomyślnie!
+        </div>
+      )}
+      <div className="grid grid-cols-3 gap-4">
         <div className="mt-4">
           <label
             htmlFor="filter"
@@ -67,6 +91,28 @@ export default function Products({ products }: { products: any }) {
             <option value="paintings">Obrazy</option>
             <option value="stickers">Naklejki</option>
             <option value="prints">Druki</option>
+          </select>
+        </div>
+        <div className="mt-4">
+          <label
+            htmlFor="tag-filter"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Filtruj według tagów
+          </label>
+          <select
+            id="tag-filter"
+            name="tag-filter"
+            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+            value={tagFilter}
+            onChange={(e) => setTagFilter(e.target.value)}
+          >
+            <option value="all">Wszystkie tagi</option>
+            {uniqueTags.map((tag: any) => (
+              <option key={tag} value={tag}>
+                {tag}
+              </option>
+            ))}
           </select>
         </div>
         <div className="mt-4">
@@ -92,7 +138,7 @@ export default function Products({ products }: { products: any }) {
       {/* implement masonry grid instead of grid */}
       <ResponsiveMasonry
         className="mt-4"
-        columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3, 1360: 4 }}
+        columnsCountBreakPoints={{ 350: 2, 750: 2, 900: 3, 1360: 4 }}
       >
         <Masonry>
           {filteredProducts.length > 0 ? (
