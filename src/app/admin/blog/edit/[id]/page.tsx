@@ -7,7 +7,7 @@ export default async function EditPostPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const post = await getDocument("blog", id);
+  const post: any = await getDocument("blog", id);
 
   if (!post) {
     return (
