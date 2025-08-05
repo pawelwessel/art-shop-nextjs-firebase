@@ -14,7 +14,7 @@ export default function BlogPage() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const fetchedPosts = await getDocuments("blog");
+        const fetchedPosts: any = await getDocuments("blog");
         setPosts(fetchedPosts || []);
       } catch (error) {
         console.error("Error fetching posts:", error);
