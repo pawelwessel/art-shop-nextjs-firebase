@@ -5,7 +5,7 @@ import { FaBell, FaCheck } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
-const setLocalStorage = (key, value) => {
+const setLocalStorage = (key: any, value: any) => {
   if (typeof window !== "undefined") {
     localStorage.setItem(key, value);
   }
